@@ -11,20 +11,33 @@ class Sections: ObservableObject {
 
     @Published var sections: [Section] = []
 
-    func cumulativeLeftWidthMultiplier(section: Section?) -> CGFloat {
-        guard let section = section else { return 0.0 }
-        guard section.leftNeighbors.count != 0 else { return 0.0 }
-        let widest = section.leftNeighbors.max(by: {$0.widthMutiplier > $1.widthMutiplier} )
-        return (widest?.widthMutiplier ?? 0) + cumulativeLeftWidthMultiplier(section: widest)
+//    func cumulativeLeftWidthMultiplier(section: Section?) -> CGFloat {
+//        guard let section = section else { return 0.0 }
+//        guard section.leftNeighbors.count != 0 else { return 0.0 }
+//        let widest = section.leftNeighbors.max(by: {$0.widthMutiplier > $1.widthMutiplier} )
+//        return (widest?.widthMutiplier ?? 0) + cumulativeLeftWidthMultiplier(section: widest)
+//    }
+//
+//    func tempCumulativeLeftWidthMultiplier(section: Section?) -> CGFloat {
+//        guard let section = section else { return 0.0 }
+//        guard section.leftNeighbors.count != 0 else { return 0.0 }
+//        guard let widest = section.leftNeighbors.max(by: {$0.widthMutiplier > $1.widthMutiplier} ) else { return 0.0}
+//        return (widest.width / (widest.homeSize?.wrappedValue.width ?? 0)) + tempCumulativeLeftWidthMultiplier(section: widest)
+//    }
+//
+//    func cumulativeTopHeightMultiplier(section: Section?) -> CGFloat {
+//        guard let section = section else { return 0.0 }
+//        guard section.topNeighbors.count != 0 else { return 0.0 }
+//        let tallest = section.topNeighbors.max(by: {$0.heightOffset > $1.heightOffset} )
+//        return (tallest?.heightMultiplier ?? 0) + cumulativeTopHeightMultiplier(section: tallest)
+//    }
+//
+    func setZStackOffsets() {
+        for section in sections {
+            section.heightZStackOffset = section.cumulativeTopHeightMultiplier(section: section)
+            section.widthZStackOffset = section.cumulativeLeftWidthMultiplier(section: section)
+        }
     }
-
-    func cumulativeTopHeightMultiplier(section: Section?) -> CGFloat {
-        guard let section = section else { return 0.0 }
-        guard section.topNeighbors.count != 0 else { return 0.0 }
-        let tallest = section.topNeighbors.max(by: {$0.heightOffset > $1.heightOffset} )
-        return (tallest?.heightMultiplier ?? 0) + cumulativeTopHeightMultiplier(section: tallest)
-    }
-
 }
 
 class MouseHover: ObservableObject, Equatable {
@@ -76,8 +89,8 @@ struct SectionsView: View {
                 SectionView(section: section, homeSize: $homeSize, resizing: $resizingSections, mouseHover: mouseHover)
                     .offset(
                         CGSize(
-                            width: sections.cumulativeLeftWidthMultiplier(section: section) * homeSize.width,
-                            height: sections.cumulativeTopHeightMultiplier(section: section) * homeSize.height
+                            width: section.widthZStackOffset * homeSize.width,
+                            height: section.heightZStackOffset * homeSize.height
                         )
                     )
 
@@ -94,6 +107,7 @@ struct SectionsView: View {
                     resizingSection = nil
                     resizingSections = false
                     mouseDownWindowLocation = nil
+                    sections.setZStackOffsets()
                     return $0
                 }
                 NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDragged]) {
@@ -136,6 +150,9 @@ struct SectionsView: View {
                             }
                         case .none:
                             break;
+                        }
+                        for section in sections.sections {
+                            section.widthZStackOffset = section.cumulativeLeftWidthMultiplier(section: section)
                         }
 
                     }

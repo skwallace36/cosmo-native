@@ -36,6 +36,7 @@ struct HomeView: View {
                     sectionOne.rightNeighbors.append(sectionTwo)
                     sectionTwo.rightNeighbors.append(sectionThree)
                     home.sections.sections.append(contentsOf: [sectionOne, sectionTwo, sectionThree, sectionFour])
+                    home.sections.setZStackOffsets()
                 }
             }
         }

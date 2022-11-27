@@ -13,6 +13,9 @@ class Section: ObservableObject, Equatable, Identifiable  {
         lhs.uuid == rhs.uuid
     }
 
+    @Published var widthZStackOffset = 0.0
+    @Published var heightZStackOffset = 0.0
+
     var leftNeighbor: Section? = nil
     var rightNeighbor: Section? = nil
     var topNeighbor: Section? = nil
@@ -47,8 +50,6 @@ class Section: ObservableObject, Equatable, Identifiable  {
         }
     }
 
-
-
     @Published var widthMutiplier: CGFloat
     @Published var heightMultiplier: CGFloat
     @Published var widthOffset: CGFloat = 0.0
@@ -72,6 +73,20 @@ class Section: ObservableObject, Equatable, Identifiable  {
         self.bottom = bottom
         self.title = title
     }
+
+    func cumulativeLeftWidthMultiplier(section: Section?) -> CGFloat {
+        guard let section = section else { return 0.0 }
+        guard section.leftNeighbors.count != 0 else { return 0.0 }
+        guard let widest = section.leftNeighbors.max(by: { $0.width / (homeSize?.wrappedValue.width ?? 0) > $1.width / (homeSize?.wrappedValue.width ?? 0) } ) else { return 0.0 }
+        return (widest.width  / (homeSize?.wrappedValue.width ?? 0)) + cumulativeLeftWidthMultiplier(section: widest)
+    }
+    func cumulativeTopHeightMultiplier(section: Section?) -> CGFloat {
+        guard let section = section else { return 0.0 }
+        guard section.topNeighbors.count != 0 else { return 0.0 }
+        let tallest = section.topNeighbors.max(by: {$0.heightOffset > $1.heightOffset} )
+        return (tallest?.heightMultiplier ?? 0) + cumulativeTopHeightMultiplier(section: tallest)
+    }
+
 }
 
 struct SectionView: View {
@@ -85,7 +100,7 @@ struct SectionView: View {
     var body: some View {
         HStack(spacing: 0) {
             VStack(spacing: 0) {
-                Text("\(section.title)")
+            Text("\(section.title)")
             }
         }.frame(
             width: section.widthMutiplier * homeSize.width + section.widthOffset,
@@ -105,10 +120,12 @@ struct SectionView: View {
             })
             .onChange(of: resizing, perform: { [resizing] newValue in
                 // end of resize
+                section.widthZStackOffset = section.cumulativeLeftWidthMultiplier(section: section)
                 if resizing && !newValue {
                     let newWidth = section.width
                     section.widthMutiplier = newWidth / homeSize.width
                     section.widthOffset = 0
+                    section.widthZStackOffset = section.cumulativeLeftWidthMultiplier(section: section)
                     let newHeight = section.height
                     section.heightMultiplier = newHeight / homeSize.height
                     section.heightOffset = 0
