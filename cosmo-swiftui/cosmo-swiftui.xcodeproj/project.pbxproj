@@ -7,27 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
+		9214A647292FD3D10072B012 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Section.swift */; };
+		9214A649292FD3D50072B012 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Sections.swift */; };
 		92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */; };
 		92319DBC29268CF2005675C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DBB29268CF2005675C9 /* ContentView.swift */; };
 		92319DBE29268CF3005675C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92319DBD29268CF3005675C9 /* Assets.xcassets */; };
 		92319DC129268CF3005675C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92319DC029268CF3005675C9 /* Preview Assets.xcassets */; };
-		92319DC929269049005675C9 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DC829269049005675C9 /* SectionView.swift */; };
-		92319DCB29297FB2005675C9 /* SectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCA29297FB2005675C9 /* SectionViewModel.swift */; };
-		92319DCD29297FDB005675C9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCC29297FDB005675C9 /* HomeViewModel.swift */; };
-		92319DCF29297FDE005675C9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCE29297FDE005675C9 /* HomeView.swift */; };
+		92319DCF29297FDE005675C9 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCE29297FDE005675C9 /* Home.swift */; };
+		92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */; };
+		92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		9214A646292FD3D10072B012 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		9214A648292FD3D50072B012 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
 		92319DB629268CF2005675C9 /* cosmo-swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cosmo-swiftui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cosmo_swiftuiApp.swift; sourceTree = "<group>"; };
 		92319DBB29268CF2005675C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92319DBD29268CF3005675C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92319DC029268CF3005675C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		92319DC229268CF3005675C9 /* cosmo_swiftui.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cosmo_swiftui.entitlements; sourceTree = "<group>"; };
-		92319DC829269049005675C9 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
-		92319DCA29297FB2005675C9 /* SectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewModel.swift; sourceTree = "<group>"; };
-		92319DCC29297FDB005675C9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		92319DCE29297FDE005675C9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		92319DCE29297FDE005675C9 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCusor+Extensions.swift"; sourceTree = "<group>"; };
+		92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +45,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9214A64A292FD4200072B012 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				92319DCE29297FDE005675C9 /* Home.swift */,
+				9214A646292FD3D10072B012 /* Section.swift */,
+				9214A648292FD3D50072B012 /* Sections.swift */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
 		92319DAD29268CF2005675C9 = {
 			isa = PBXGroup;
 			children = (
@@ -60,12 +74,12 @@
 		92319DB829268CF2005675C9 /* cosmo-swiftui */ = {
 			isa = PBXGroup;
 			children = (
+				9214A64A292FD4200072B012 /* main */,
 				92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */,
 				92319DBB29268CF2005675C9 /* ContentView.swift */,
-				92319DCA29297FB2005675C9 /* SectionViewModel.swift */,
-				92319DC829269049005675C9 /* SectionView.swift */,
-				92319DCC29297FDB005675C9 /* HomeViewModel.swift */,
-				92319DCE29297FDE005675C9 /* HomeView.swift */,
+				9214A644292ED7440072B012 /* Color+Extensions.swift */,
+				92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */,
+				92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */,
 				92319DBD29268CF3005675C9 /* Assets.xcassets */,
 				92319DC229268CF3005675C9 /* cosmo_swiftui.entitlements */,
 				92319DBF29268CF3005675C9 /* Preview Content */,
@@ -152,11 +166,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				92319DBC29268CF2005675C9 /* ContentView.swift in Sources */,
+				9214A649292FD3D50072B012 /* Sections.swift in Sources */,
 				92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */,
-				92319DCB29297FB2005675C9 /* SectionViewModel.swift in Sources */,
-				92319DCF29297FDE005675C9 /* HomeView.swift in Sources */,
-				92319DCD29297FDB005675C9 /* HomeViewModel.swift in Sources */,
-				92319DC929269049005675C9 /* SectionView.swift in Sources */,
+				92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */,
+				9214A647292FD3D10072B012 /* Section.swift in Sources */,
+				92319DCF29297FDE005675C9 /* Home.swift in Sources */,
+				9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */,
+				92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
