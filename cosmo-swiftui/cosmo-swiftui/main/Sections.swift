@@ -9,49 +9,22 @@ import SwiftUI
 
 class Sections: ObservableObject {
 
-    @Published var rows: [[Section]] = []
-    
+    @Published var sections: [Section] = []
 
-    func leftNeighbor(for section: Section?) -> Section? {
-        guard let section = section else { return nil }
-        guard let row = rows.firstIndex(where: { $0.contains(section) }) else { return nil }
-        guard let col = rows[row].firstIndex(where: { $0.uuid == section.uuid }) else { return nil }
-        guard col != 0 else { return nil }
-        return rows[row][col - 1]
+    func cumulativeLeftWidthMultiplier(section: Section?) -> CGFloat {
+        guard let section = section else { return 0.0 }
+        guard section.leftNeighbors.count != 0 else { return 0.0 }
+        let widest = section.leftNeighbors.max(by: {$0.widthMutiplier > $1.widthMutiplier} )
+        return (widest?.widthMutiplier ?? 0) + cumulativeLeftWidthMultiplier(section: widest)
     }
 
-    func rightNeighbor(for section: Section?) -> Section? {
-        guard let section = section else { return nil }
-        guard let row = rows.firstIndex(where: { $0.contains(section) }) else { return nil }
-        guard let col = rows[row].firstIndex(where: { $0.uuid == section.uuid }) else { return nil }
-        guard col != rows[row].count - 1 else { return nil }
-        return rows[row][col + 1]
+    func cumulativeTopHeightMultiplier(section: Section?) -> CGFloat {
+        guard let section = section else { return 0.0 }
+        guard section.topNeighbors.count != 0 else { return 0.0 }
+        let tallest = section.topNeighbors.max(by: {$0.heightOffset > $1.heightOffset} )
+        return (tallest?.heightMultiplier ?? 0) + cumulativeTopHeightMultiplier(section: tallest)
     }
 
-    func leftNeighbors(for section: Section?) -> [Section] {
-        guard let section = section else { return [] }
-        guard let row = rows.firstIndex(where: { $0.contains(section) }) else { return [] }
-        guard let col = rows[row].firstIndex(where: { $0.uuid == section.uuid }) else { return [] }
-        return rows[row].dropLast(rows[row].count - col)
-    }
-
-    func rightNeighbors(for section: Section?) -> [Section] {
-        guard let section = section else { return [] }
-        guard let row = rows.firstIndex(where: { $0.contains(section) }) else { return [] }
-        guard let col = rows[row].firstIndex(where: { $0.uuid == section.uuid }) else { return [] }
-        return Array<Section>(rows[row].dropFirst(col + 1))
-    }
-
-//    func bottomNeighbor(for section: Section?) -> Section? {
-//        guard let section = section else { return nil }
-//        guard let row = rows.firstIndex(where: { $0.contains(section) }) else { return nil }
-//        if row == rows.count - 1 { return nil }
-//        guard let col = rows[row].firstIndex(where: { $0.uuid == section.uuid }) else { return nil }
-//        for section in rows[row + 1] {
-//            print(section)
-//        }
-//        return nil
-//    }
 }
 
 class MouseHover: ObservableObject, Equatable {
@@ -92,18 +65,22 @@ struct SectionsView: View {
     @State var resizingFromEdge: ResizeEdge?
     let resizeThreshold: CGFloat = 5.0
 
+    func widthOffset(for section: Section) -> CGFloat {
+        guard section.leftNeighbors.count > 0 else { return .zero}
+        return 0
+    }
+
     var body: some View {
         ZStack(alignment: .topLeading) {
-            ForEach(0..<sections.rows.count, id: \.self) { row in
-                ForEach(0..<sections.rows[row].count, id: \.self) { col in
-                    SectionView(section: sections.rows[row][col], homeSize: $homeSize, resizing: $resizingSections, mouseHover: mouseHover)
-                        .offset(
-                            CGSize(
-                                width: 0,
-                                height: 0
-                            )
+            ForEach(sections.sections) { section in
+                SectionView(section: section, homeSize: $homeSize, resizing: $resizingSections, mouseHover: mouseHover)
+                    .offset(
+                        CGSize(
+                            width: sections.cumulativeLeftWidthMultiplier(section: section) * homeSize.width,
+                            height: sections.cumulativeTopHeightMultiplier(section: section) * homeSize.height
                         )
-                }
+                    )
+
             }.onAppear(perform: {
                 NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown]) {
                     mouseDownWindowLocation = $0.locationInWindow

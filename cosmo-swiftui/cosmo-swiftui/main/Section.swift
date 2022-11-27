@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-class Section: ObservableObject, Equatable {
+class Section: ObservableObject, Equatable, Identifiable  {
     static func == (lhs: Section, rhs: Section) -> Bool {
         lhs.uuid == rhs.uuid
     }
@@ -61,14 +61,16 @@ class Section: ObservableObject, Equatable {
     var top: Bool
     var bottom: Bool
     var uuid = UUID()
+    var title: String
     var backgroundColor: Color = .random
-    init(_ widthMultiplier: Double, _ heightMultiplier: Double, farLeft: Bool = false, farRight: Bool = false, top: Bool = false, bottom: Bool = false) {
+    init(_ widthMultiplier: Double, _ heightMultiplier: Double, farLeft: Bool = false, farRight: Bool = false, top: Bool = false, bottom: Bool = false, title: String) {
         self.widthMutiplier = CGFloat(widthMultiplier)
         self.heightMultiplier = CGFloat(heightMultiplier)
         self.farLeft = farLeft
         self.farRight = farRight
         self.top = top
         self.bottom = bottom
+        self.title = title
     }
 }
 
@@ -83,7 +85,7 @@ struct SectionView: View {
     var body: some View {
         HStack(spacing: 0) {
             VStack(spacing: 0) {
-                Text("Hello, world!")
+                Text("\(section.title)")
             }
         }.frame(
             width: section.widthMutiplier * homeSize.width + section.widthOffset,
