@@ -60,27 +60,28 @@ class Sections: ObservableObject {
     @Published var sections: [Section] = []
 
     init() {
-        let sectionOne = Section(0.25, 0.35, title: "sectionOne", widthZStackOffset: 0.0, heightZStackOffset: 0.0)
-        let sectionFive = Section(0.25, 0.35, title: "sectionFive", widthZStackOffset: 0.0, heightZStackOffset: 0.35)
-        let sectionTwo = Section(0.375, 0.7, title: "sectionTwo", widthZStackOffset: 0.25, heightZStackOffset: 0.0)
-        let sectionThree = Section(0.375, 0.7, title: "sectionThree", widthZStackOffset: 0.625, heightZStackOffset: 0.0)
-        let sectionFour = Section(1, 0.3, title: "sectionFour", widthZStackOffset: 0.0, heightZStackOffset: 0.7)
-        [sectionTwo, sectionThree].forEach({ $0.bottomNeighbors.append(sectionFour) })
+        let sectionOne = Section(0.25, 0.35, title: "1", widthZStackOffset: 0.0, heightZStackOffset: 0.0)
+        let sectionTwo = Section(0.25, 0.35, title: "2", widthZStackOffset: 0.0, heightZStackOffset: 0.35)
+        let sectionThree = Section(0.375, 0.7, title: "3", widthZStackOffset: 0.25, heightZStackOffset: 0.0)
+        let sectionFour = Section(0.375, 0.7, title: "4", widthZStackOffset: 0.625, heightZStackOffset: 0.0)
+        let sectionFive = Section(1, 0.3, title: "5", widthZStackOffset: 0.0, heightZStackOffset: 0.7)
 
-        sectionFour.topNeighbors.append(contentsOf: [sectionFive, sectionTwo, sectionThree])
+        sectionOne.bottomNeighbors.append(sectionTwo)
+        sectionOne.rightNeighbors.append(sectionThree)
 
-        sectionOne.bottomNeighbors.append(sectionFive)
-        sectionOne.rightNeighbors.append(sectionTwo)
-
-        sectionFive.rightNeighbors.append(sectionTwo)
-        sectionFive.topNeighbors.append(sectionOne)
-
-        sectionTwo.leftNeighbors.append(contentsOf: [sectionOne, sectionFive])
         sectionTwo.rightNeighbors.append(sectionThree)
-        sectionTwo.bottomNeighbors.append(sectionFour)
+        sectionTwo.topNeighbors.append(sectionOne)
+        sectionTwo.bottomNeighbors.append(sectionFive)
 
-        sectionThree.leftNeighbors.append(sectionTwo)
-        sectionThree.bottomNeighbors.append(sectionFour)
+        sectionThree.leftNeighbors.append(contentsOf: [sectionOne, sectionTwo])
+        sectionThree.rightNeighbors.append(sectionFour)
+        sectionThree.bottomNeighbors.append(sectionFive)
+
+        sectionFour.leftNeighbors.append(sectionThree)
+        sectionFour.bottomNeighbors.append(sectionFive)
+
+        sectionFive.topNeighbors.append(contentsOf: [sectionTwo, sectionThree, sectionFour])
+
 
         sections.append(contentsOf: [sectionOne, sectionTwo, sectionThree, sectionFour, sectionFive])
         sections.forEach {
@@ -89,16 +90,22 @@ class Sections: ObservableObject {
             $0.topNeighborsBottomNeighbors = Array(Set($0.topNeighbors.flatMap { $0.bottomNeighbors }))
             $0.bottomNeighborsTopNeighbors = Array(Set($0.bottomNeighbors.flatMap { $0.topNeighbors }))
             $0.topNeighborsSameWidthAndX = topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors)
+            $0.bottomNeighborsSameWidthAndX = bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors)
         }
     }
 
     func topNeighborsSameWidthAndXRecursive(for section: Section, with topNeighbors: [Section] ) -> [Section] {
         let topNeighborsWithSameWithAndX = topNeighbors.filter {
-            $0.widthMutiplier == section.widthMutiplier &&
-                $0.widthZStackOffset == section.widthZStackOffset
+            $0.widthMutiplier == section.widthMutiplier && $0.widthZStackOffset == section.widthZStackOffset
         }
-
         return topNeighborsWithSameWithAndX + topNeighborsWithSameWithAndX.flatMap { topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors) }
+    }
+
+    func bottomNeighborsSameWidthAndXRecursive(for section: Section, with bottomNeighbors: [Section] ) -> [Section] {
+        let bottomNeighborsWithSameWithAndX = bottomNeighbors.filter {
+            $0.widthMutiplier == section.widthMutiplier && $0.widthZStackOffset == section.widthZStackOffset
+        }
+        return bottomNeighborsWithSameWithAndX + bottomNeighborsWithSameWithAndX.flatMap { bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors) }
     }
 }
 
@@ -267,14 +274,22 @@ struct SectionsView: View {
                 $0.heightMultiplierAdjustment = -dY
                 $0.heightZStackOffsetAdjustment = dY
             }
-            topNeighbors.forEach {
-                $0.heightMultiplierAdjustment = dY
+            topNeighborGroups.forEach { group in
+                group.enumerated().forEach { (index, section) in
+                    let dividedDeltaY = dY / CGFloat(group.count)
+                    section.heightZStackOffsetAdjustment = dividedDeltaY * CGFloat(index)
+                    section.heightMultiplierAdjustment = dividedDeltaY
+                }
             }
         } else if dY > 0 {
             let topNeighbors = sectionDragging.topNeighbors
+            let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
-            sectionDragging.topNeighbors.forEach {
-                $0.heightMultiplierAdjustment = dY
+            topNeighborGroups.forEach { group in
+                group.enumerated().forEach { (index, section) in
+                    section.heightZStackOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    section.heightMultiplierAdjustment = dY / CGFloat(group.count)
+                }
             }
             bottomNeighbors.forEach {
                 $0.heightMultiplierAdjustment = -dY
@@ -344,24 +359,17 @@ struct SectionsView: View {
         NSCursor.arrow.popThenPush()
     }
 
-    func onLeftEdge(at location: CGPoint, for section: Section) -> Bool {
-        return location.x < hoverResizeThreshold
-    }
+    func onLeftEdge(at location: CGPoint, for section: Section) -> Bool { location.x < hoverResizeThreshold }
 
     func onRightEdge(at location: CGPoint, for section: Section) -> Bool {
         let sectionWidth = section.widthMutiplier * homeSize.width
         return location.x > sectionWidth - hoverResizeThreshold
     }
 
-    func onTopEdge(at location: CGPoint, for section: Section) -> Bool {
-        return location.y < hoverResizeThreshold
-    }
+    func onTopEdge(at location: CGPoint, for section: Section) -> Bool { location.y < hoverResizeThreshold }
 
     func onBottomEdge(at location: CGPoint, for section: Section) -> Bool {
-//        print(section.heightMultiplier)
         let sectionHeight = section.heightMultiplier * homeSize.height
-//        print(sectionHeight)
-//        print(location.y)
         return location.y > sectionHeight - hoverResizeThreshold
     }
 }

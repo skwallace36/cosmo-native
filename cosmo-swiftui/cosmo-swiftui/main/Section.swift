@@ -26,6 +26,7 @@ class Section: ObservableObject, Equatable, Identifiable, Hashable  {
     var topNeighborsBottomNeighbors: [Section] = []
     var bottomNeighborsTopNeighbors: [Section] = []
     var topNeighborsSameWidthAndX: [Section] = []
+    var bottomNeighborsSameWidthAndX: [Section] = []
 
 
     @Published var widthMutiplier: CGFloat
@@ -73,6 +74,7 @@ struct SectionView: View {
             Spacer()
             VStack(spacing: 0) {
                 Spacer()
+                Text("\(section.title)").fontWeight(.bold).font(.system(size: 88))
                 Text("\(section.heightMultiplier)")
                 Text("\(section.heightZStackOffset)")
                 Spacer()
