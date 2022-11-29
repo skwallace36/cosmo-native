@@ -8,39 +8,18 @@
 import SwiftUI
 
 
-
-
-class Home: ObservableObject {
-    @Published var sections = Sections()
-}
-
-
 struct HomeView: View {
 
-    @Environment(\.scenePhase)var scenePhase
-    @StateObject var home = Home()
+
     @State var homeSize: CGSize = .zero
+
 
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: 0) {
-                SectionsView(sections: home.sections, homeSize: $homeSize)
-            }.onChange(of: scenePhase) { phase in
-                if phase == .active {
-                    let sectionOne = Section(0.25, 0.7, farLeft: true, top: true, title: "sectionOne")
-                    let sectionTwo = Section(0.375, 0.7, top: true, title: "sectionTwo")
-                    let sectionThree = Section(0.375, 0.7, farRight: true, top: true, title: "sectionThree")
-                    let sectionFour = Section(1, 0.3, farLeft: true, farRight: true, bottom: true, title: "sectionFour")
-                    [sectionOne, sectionTwo, sectionThree].forEach({ $0.bottomNeighbors.append(sectionFour) })
-                    sectionFour.topNeighbors.append(contentsOf: [sectionOne, sectionTwo, sectionThree])
-                    sectionOne.rightNeighbors.append(sectionTwo)
-                    sectionTwo.rightNeighbors.append(sectionThree)
-                    home.sections.sections.append(contentsOf: [sectionOne, sectionTwo, sectionThree, sectionFour])
-                    home.sections.setZStackOffsets()
-                }
+                SectionsView(homeSize: $homeSize)
             }
-        }
-        .bindGeometry(to: $homeSize) { $0.size }
+        }.bindGeometry(to: $homeSize) { $0.size }
     }
 }
 
