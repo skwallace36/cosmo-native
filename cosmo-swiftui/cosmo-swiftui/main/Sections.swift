@@ -6,34 +6,7 @@
 //
 
 import SwiftUI
-
-//class Sections: ObservableObject {
-//
-//    @Binding var sections: [Section]
-//
-//    
-//
-//    func cumulativeLeftWidthMultiplier(section: Section?) -> CGFloat {
-//        guard let section = section else { return 0.0 }
-//        guard section.leftNeighbors.count != 0 else { return 0.0 }
-//        let widest = section.leftNeighbors.max(by: {$0.widthMutiplier > $1.widthMutiplier} )
-//        return (widest?.widthMutiplier ?? 0) + cumulativeLeftWidthMultiplier(section: widest)
-//    }
-//
-//    func cumulativeTopHeightMultiplier(section: Section?) -> CGFloat {
-//        guard let section = section else { return 0.0 }
-//        guard section.topNeighbors.count != 0 else { return 0.0 }
-//        let tallest = section.topNeighbors.max(by: {$0.heightMultiplier > $1.heightMultiplier} )
-//        return (tallest?.heightMultiplier ?? 0) + cumulativeTopHeightMultiplier(section: tallest)
-//    }
-////
-//    func setZStackOffsets() {
-////        for section in sections {
-////            section.heightZStackOffset = section.cumulativeTopHeightMultiplier(section: section)
-////            section.widthZStackOffset = section.cumulativeLeftWidthMultiplier(section: section)
-////        }
-//    }
-//}
+        
 
 class MouseHover: ObservableObject, Equatable {
     static func == (lhs: MouseHover, rhs: MouseHover) -> Bool {
@@ -303,24 +276,31 @@ struct SectionsView: View {
         let dY = globalSectionDrag.translation.height
         if dY < 0 {
             let bottomNeighbors = sectionDragging.bottomNeighbors
-            let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
             bottomNeighbors.forEach {
                 $0.heightMultiplierAdjustment = -dY
                 $0.heightZStackOffsetAdjustment = dY
             }
-            topNeighbors.forEach {
-                $0.heightMultiplierAdjustment = dY
+            let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
+            let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
+            topNeighborGroups.forEach { group in
+                group.enumerated().forEach { (index, section) in
+                    section.heightZStackOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    section.heightMultiplierAdjustment = (dY / CGFloat(group.count))
+                }
             }
-
         } else if dY > 0 {
             let bottomNeighbors = sectionDragging.bottomNeighbors
-            let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
             bottomNeighbors.forEach {
                 $0.heightMultiplierAdjustment = -dY
                 $0.heightZStackOffsetAdjustment = dY
             }
-            topNeighbors.forEach {
-                $0.heightMultiplierAdjustment = dY
+            let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
+            let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
+            topNeighborGroups.forEach { group in
+                group.enumerated().forEach { (index, section) in
+                    section.heightZStackOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    section.heightMultiplierAdjustment = (dY / CGFloat(group.count))
+                }
             }
         }
     }
