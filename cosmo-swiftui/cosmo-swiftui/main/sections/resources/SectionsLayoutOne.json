@@ -1,0 +1,50 @@
+{
+    sections: [
+        {
+            id:
+        },
+        {
+
+        },
+        {
+
+        }
+    ]
+    }
+
+
+
+
+
+let sectionOne = Section(0.25, 0.35, title: "1", widthZStackOffset: 0.0, heightZStackOffset: 0.0)
+let sectionTwo = Section(0.25, 0.35, title: "2", widthZStackOffset: 0.0, heightZStackOffset: 0.35)
+let sectionThree = Section(0.375, 0.7, title: "3", widthZStackOffset: 0.25, heightZStackOffset: 0.0)
+let sectionFour = Section(0.375, 0.7, title: "4", widthZStackOffset: 0.625, heightZStackOffset: 0.0)
+let sectionFive = Section(1, 0.3, title: "5", widthZStackOffset: 0.0, heightZStackOffset: 0.7)
+
+sectionOne.bottomNeighbors.append(sectionTwo)
+sectionOne.rightNeighbors.append(sectionThree)
+
+sectionTwo.rightNeighbors.append(sectionThree)
+sectionTwo.topNeighbors.append(sectionOne)
+sectionTwo.bottomNeighbors.append(sectionFive)
+
+sectionThree.leftNeighbors.append(contentsOf: [sectionOne, sectionTwo])
+sectionThree.rightNeighbors.append(sectionFour)
+sectionThree.bottomNeighbors.append(sectionFive)
+
+sectionFour.leftNeighbors.append(sectionThree)
+sectionFour.bottomNeighbors.append(sectionFive)
+
+sectionFive.topNeighbors.append(contentsOf: [sectionTwo, sectionThree, sectionFour])
+
+
+sections.append(contentsOf: [sectionOne, sectionTwo, sectionThree, sectionFour, sectionFive])
+sections.forEach {
+    $0.rightNeighborsLeftNeighbors = Array(Set($0.rightNeighbors.flatMap { $0.leftNeighbors }))
+    $0.leftNeighborsRightNeighbors = Array(Set($0.leftNeighbors.flatMap { $0.rightNeighbors }))
+    $0.topNeighborsBottomNeighbors = Array(Set($0.topNeighbors.flatMap { $0.bottomNeighbors }))
+    $0.bottomNeighborsTopNeighbors = Array(Set($0.bottomNeighbors.flatMap { $0.topNeighbors }))
+    $0.topNeighborsSameWidthAndX = topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors)
+    $0.bottomNeighborsSameWidthAndX = bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors)
+}

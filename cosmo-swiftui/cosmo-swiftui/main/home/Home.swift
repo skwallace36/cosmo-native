@@ -12,12 +12,17 @@ struct HomeView: View {
 
 
     @State var homeSize: CGSize = .zero
-
+    var initialLayout: DecodableSections? {
+        guard let threeColumnsPath = Bundle.main.path(forResource: "ThreeColumns", ofType: "json") else { return nil }
+        guard let threeColumnsData = try? Data(contentsOf: URL(fileURLWithPath: threeColumnsPath)) else { return nil }
+        guard let decodableSections = try? JSONDecoder().decode(DecodableSections.self, from: threeColumnsData) else { return nil }
+        return decodableSections
+    }
 
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: 0) {
-                SectionsView(homeSize: $homeSize)
+                SectionsView(sections: Sections(initialLayout: initialLayout), homeSize: $homeSize)
             }
         }.bindGeometry(to: $homeSize) { $0.size }
     }

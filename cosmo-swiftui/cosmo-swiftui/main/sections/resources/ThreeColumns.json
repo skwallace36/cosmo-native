@@ -1,0 +1,60 @@
+{
+    "sections": [
+        {
+            "id": 1,
+            "size": {
+                "width": 0.25,
+                "height": 1.0
+            },
+            "offset": {
+                "width": 0.0,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [],
+                "right": [2],
+                "top": [],
+                "bottom": []
+            }
+        },
+        {
+            "id": 2,
+            "size": {
+                "width": 0.375,
+                "height": 1.0
+            },
+            "offset": {
+                "width": 0.25,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [1],
+                "right": [3],
+                "top": [],
+                "bottom": []
+            }
+
+        },
+        {
+            "id": 3,
+            "size": {
+                "width": 0.375,
+                "height": 1.0
+            },
+            "offset": {
+                "width": 0.625,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [2],
+                "right": [],
+                "top": [],
+                "bottom": []
+            }
+
+        }
+    ]
+}
+
+
+

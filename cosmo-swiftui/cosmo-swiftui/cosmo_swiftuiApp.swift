@@ -16,4 +16,3 @@ struct cosmo_swiftuiApp: App {
         }
     }
 }
-

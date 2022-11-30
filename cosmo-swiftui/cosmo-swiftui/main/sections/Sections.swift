@@ -31,32 +31,51 @@ enum ResizeEdge {
 
 class Sections: ObservableObject {
     @Published var sections: [Section] = []
+    var initialLayout: DecodableSections? = nil
 
-    init() {
-        let sectionOne = Section(0.25, 0.35, title: "1", widthZStackOffset: 0.0, heightZStackOffset: 0.0)
-        let sectionTwo = Section(0.25, 0.35, title: "2", widthZStackOffset: 0.0, heightZStackOffset: 0.35)
-        let sectionThree = Section(0.375, 0.7, title: "3", widthZStackOffset: 0.25, heightZStackOffset: 0.0)
-        let sectionFour = Section(0.375, 0.7, title: "4", widthZStackOffset: 0.625, heightZStackOffset: 0.0)
-        let sectionFive = Section(1, 0.3, title: "5", widthZStackOffset: 0.0, heightZStackOffset: 0.7)
+    init(initialLayout: DecodableSections?) {
 
-        sectionOne.bottomNeighbors.append(sectionTwo)
-        sectionOne.rightNeighbors.append(sectionThree)
+//        let sectionOne = Section(0.25, 0.35, title: 1, widthZStackOffset: 0.0, heightZStackOffset: 0.0)
+//        let sectionTwo = Section(0.25, 0.35, title: 2, widthZStackOffset: 0.0, heightZStackOffset: 0.35)
+//        let sectionThree = Section(0.375, 0.7, title: 3, widthZStackOffset: 0.25, heightZStackOffset: 0.0)
+//        let sectionFour = Section(0.375, 0.7, title: 4, widthZStackOffset: 0.625, heightZStackOffset: 0.0)
+//        let sectionFive = Section(1, 0.3, title: 5, widthZStackOffset: 0.0, heightZStackOffset: 0.7)
+//
+//        sectionOne.bottomNeighbors.append(sectionTwo)
+//        sectionOne.rightNeighbors.append(sectionThree)
+//
+//        sectionTwo.rightNeighbors.append(sectionThree)
+//        sectionTwo.topNeighbors.append(sectionOne)
+//        sectionTwo.bottomNeighbors.append(sectionFive)
+//
+//        sectionThree.leftNeighbors.append(contentsOf: [sectionOne, sectionTwo])
+//        sectionThree.rightNeighbors.append(sectionFour)
+//        sectionThree.bottomNeighbors.append(sectionFive)
+//
+//        sectionFour.leftNeighbors.append(sectionThree)
+//        sectionFour.bottomNeighbors.append(sectionFive)
+//
+//        sectionFive.topNeighbors.append(contentsOf: [sectionTwo, sectionThree, sectionFour])
+        guard let decodableSections = initialLayout?.sections else { return }
+        sections.append(contentsOf: decodableSections.map { Section.fromDecodableSection($0) })
 
-        sectionTwo.rightNeighbors.append(sectionThree)
-        sectionTwo.topNeighbors.append(sectionOne)
-        sectionTwo.bottomNeighbors.append(sectionFive)
+        decodableSections.enumerated().forEach { index, decodableSection in
+            sections[index].leftNeighbors = sections.filter {
+                decodableSection.neighbors.left.firstIndex(of: $0.title) != nil
+            }
+            sections[index].rightNeighbors = sections.filter {
+                decodableSection.neighbors.right.firstIndex(of: $0.title) != nil
+            }
+            sections[index].topNeighbors = sections.filter {
+                decodableSection.neighbors.top.firstIndex(of: $0.title) != nil
+            }
+            sections[index].bottomNeighbors = sections.filter {
+                decodableSection.neighbors.bottom.firstIndex(of: $0.title) != nil
+            }
+        }
 
-        sectionThree.leftNeighbors.append(contentsOf: [sectionOne, sectionTwo])
-        sectionThree.rightNeighbors.append(sectionFour)
-        sectionThree.bottomNeighbors.append(sectionFive)
 
-        sectionFour.leftNeighbors.append(sectionThree)
-        sectionFour.bottomNeighbors.append(sectionFive)
-
-        sectionFive.topNeighbors.append(contentsOf: [sectionTwo, sectionThree, sectionFour])
-
-
-        sections.append(contentsOf: [sectionOne, sectionTwo, sectionThree, sectionFour, sectionFive])
+//        sections.append(contentsOf: [sectionOne, sectionTwo, sectionThree, sectionFour, sectionFive])
         sections.forEach {
             $0.rightNeighborsLeftNeighbors = Array(Set($0.rightNeighbors.flatMap { $0.leftNeighbors }))
             $0.leftNeighborsRightNeighbors = Array(Set($0.leftNeighbors.flatMap { $0.rightNeighbors }))
@@ -84,7 +103,7 @@ class Sections: ObservableObject {
 
 struct SectionsView: View {
 
-    @StateObject var sections = Sections()
+    @StateObject var sections: Sections
 
     @Binding var homeSize: CGSize
 

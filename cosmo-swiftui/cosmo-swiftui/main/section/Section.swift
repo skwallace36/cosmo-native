@@ -9,6 +9,11 @@ import SwiftUI
 
 
 class Section: ObservableObject, Equatable, Identifiable, Hashable  {
+
+    static func fromDecodableSection(_ decodableSection: DecodableSection) -> Section {
+        return Section(decodableSection.size.width, decodableSection.size.height, title: decodableSection.id, widthZStackOffset: decodableSection.offset.width, heightZStackOffset: decodableSection.offset.height)
+    }
+
     static func == (lhs: Section, rhs: Section) -> Bool {
         lhs.uuid == rhs.uuid
     }
@@ -41,9 +46,9 @@ class Section: ObservableObject, Equatable, Identifiable, Hashable  {
 
 
     var uuid = UUID()
-    var title: String
+    var title: Int
     var backgroundColor: Color = .random
-    init(_ widthMultiplier: Double, _ heightMultiplier: Double, title: String, widthZStackOffset: CGFloat, heightZStackOffset: CGFloat) {
+    init(_ widthMultiplier: Double, _ heightMultiplier: Double, title: Int, widthZStackOffset: CGFloat, heightZStackOffset: CGFloat) {
         self.widthMutiplier = CGFloat(widthMultiplier)
         self.heightMultiplier = CGFloat(heightMultiplier)
         self.widthZStackOffset = widthZStackOffset
