@@ -1,0 +1,95 @@
+{
+    "sections": [
+        {
+            "id": 1,
+            "size": {
+                "width": 0.25,
+                "height": 0.375
+            },
+            "offset": {
+                "width": 0.0,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [],
+                "right": [3],
+                "top": [],
+                "bottom": [2]
+            }
+        },
+        {
+            "id": 2,
+            "size": {
+                "width": 0.25,
+                "height": 0.375
+            },
+            "offset": {
+                "width": 0.0,
+                "height": 0.375
+            },
+            "neighbors": {
+                "left": [],
+                "right": [3],
+                "top": [1],
+                "bottom": [5]
+            }
+
+        },
+        {
+            "id": 3,
+            "size": {
+                "width": 0.375,
+                "height": 0.75
+            },
+            "offset": {
+                "width": 0.25,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [1, 2],
+                "right": [4],
+                "top": [],
+                "bottom": [5]
+            }
+
+        },
+        {
+            "id": 4,
+            "size": {
+                "width": 0.375,
+                "height": 0.75
+            },
+            "offset": {
+                "width": 0.625,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [3],
+                "right": [],
+                "top": [],
+                "bottom": [5]
+            }
+            
+        },
+        {
+            "id": 5,
+            "size": {
+                "width": 1.0,
+                "height": 0.25
+            },
+            "offset": {
+                "width": 0,
+                "height": 0.75
+            },
+            "neighbors": {
+                "left": [],
+                "right": [],
+                "top": [2, 3, 4],
+                "bottom": []
+            }
+
+        }
+    ]
+}
+
+

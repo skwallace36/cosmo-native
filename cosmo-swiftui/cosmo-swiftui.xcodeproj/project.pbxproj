@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		921177402938089600D6C874 /* SectionDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211773F2938089600D6C874 /* SectionDecodable.swift */; };
 		92117742293808F700D6C874 /* SectionsDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117741293808F700D6C874 /* SectionsDecodable.swift */; };
+		92117744293810D300D6C874 /* ComplexLayoutOne.json in Sources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
+		92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
 		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
 		9214A647292FD3D10072B012 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Section.swift */; };
 		9214A649292FD3D50072B012 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Sections.swift */; };
@@ -19,13 +21,13 @@
 		92319DCF29297FDE005675C9 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCE29297FDE005675C9 /* Home.swift */; };
 		92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */; };
 		92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */; };
-		92A856F72936BD9E0050F352 /* SectionsLayoutOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 92A856F62936BD9E0050F352 /* SectionsLayoutOne.json */; };
 		92A856F92936C0DA0050F352 /* ThreeColumns.json in Resources */ = {isa = PBXBuildFile; fileRef = 92A856F82936C0DA0050F352 /* ThreeColumns.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9211773F2938089600D6C874 /* SectionDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDecodable.swift; sourceTree = "<group>"; };
 		92117741293808F700D6C874 /* SectionsDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsDecodable.swift; sourceTree = "<group>"; };
+		92117743293810D300D6C874 /* ComplexLayoutOne.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutOne.json; sourceTree = "<group>"; };
 		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		9214A646292FD3D10072B012 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		9214A648292FD3D50072B012 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
@@ -38,7 +40,6 @@
 		92319DCE29297FDE005675C9 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCusor+Extensions.swift"; sourceTree = "<group>"; };
 		92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Extensions.swift"; sourceTree = "<group>"; };
-		92A856F62936BD9E0050F352 /* SectionsLayoutOne.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SectionsLayoutOne.json; sourceTree = "<group>"; };
 		92A856F82936C0DA0050F352 /* ThreeColumns.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ThreeColumns.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,8 +150,8 @@
 		92A856F42936BD5D0050F352 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				92A856F62936BD9E0050F352 /* SectionsLayoutOne.json */,
 				92A856F82936C0DA0050F352 /* ThreeColumns.json */,
+				92117743293810D300D6C874 /* ComplexLayoutOne.json */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -213,10 +214,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */,
 				92319DC129268CF3005675C9 /* Preview Assets.xcassets in Resources */,
 				92319DBE29268CF3005675C9 /* Assets.xcassets in Resources */,
 				92A856F92936C0DA0050F352 /* ThreeColumns.json in Resources */,
-				92A856F72936BD9E0050F352 /* SectionsLayoutOne.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +236,7 @@
 				92117742293808F700D6C874 /* SectionsDecodable.swift in Sources */,
 				92319DCF29297FDE005675C9 /* Home.swift in Sources */,
 				921177402938089600D6C874 /* SectionDecodable.swift in Sources */,
+				92117744293810D300D6C874 /* ComplexLayoutOne.json in Sources */,
 				9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */,
 				92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */,
 			);

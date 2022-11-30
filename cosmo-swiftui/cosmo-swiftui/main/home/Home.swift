@@ -13,9 +13,11 @@ struct HomeView: View {
 
     @State var homeSize: CGSize = .zero
     var initialLayout: DecodableSections? {
-        guard let threeColumnsPath = Bundle.main.path(forResource: "ThreeColumns", ofType: "json") else { return nil }
-        guard let threeColumnsData = try? Data(contentsOf: URL(fileURLWithPath: threeColumnsPath)) else { return nil }
-        guard let decodableSections = try? JSONDecoder().decode(DecodableSections.self, from: threeColumnsData) else { return nil }
+        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") else { return nil }
+        print(initialLayoutPath)
+        guard let initialLayoutData = try? Data(contentsOf: URL(fileURLWithPath: initialLayoutPath)) else { return nil }
+        print(initialLayoutData)
+        guard let decodableSections = try? JSONDecoder().decode(DecodableSections.self, from: initialLayoutData) else { return nil }
         return decodableSections
     }
 
