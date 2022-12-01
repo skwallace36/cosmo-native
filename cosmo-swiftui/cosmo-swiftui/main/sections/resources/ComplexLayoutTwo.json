@@ -1,0 +1,131 @@
+{
+    "sections": [
+        {
+            "sectionId": 1,
+            "size": {
+                "width": 0.25,
+                "height": 0.25
+            },
+            "offset": {
+                "width": 0.0,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [],
+                "right": [3],
+                "top": [],
+                "bottom": [2]
+            }
+        },
+        {
+            "sectionId": 2,
+            "size": {
+                "width": 0.25,
+                "height": 0.25
+            },
+            "offset": {
+                "width": 0.0,
+                "height": 0.25
+            },
+            "neighbors": {
+                "left": [],
+                "right": [3],
+                "top": [1],
+                "bottom": [5]
+            }
+
+        },
+        {
+            "sectionId": 3,
+            "size": {
+                "width": 0.375,
+                "height": 0.5
+            },
+            "offset": {
+                "width": 0.25,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [1, 2],
+                "right": [4],
+                "top": [],
+                "bottom": [5]
+            }
+
+        },
+        {
+            "sectionId": 4,
+            "size": {
+                "width": 0.375,
+                "height": 0.5
+            },
+            "offset": {
+                "width": 0.625,
+                "height": 0.0
+            },
+            "neighbors": {
+                "left": [3],
+                "right": [],
+                "top": [],
+                "bottom": [5]
+            }
+
+        },
+        {
+            "sectionId": 5,
+            "size": {
+                "width": 1.0,
+                "height": 0.25
+            },
+            "offset": {
+                "width": 0,
+                "height": 0.5
+            },
+            "neighbors": {
+                "left": [],
+                "right": [],
+                "top": [2, 3, 4],
+                "bottom": [6, 7]
+            }
+
+        },
+        {
+            "sectionId": 6,
+            "size": {
+                "width": 0.5,
+                "height": 0.25
+            },
+            "offset": {
+                "width": 0,
+                "height": 0.75
+            },
+            "neighbors": {
+                "left": [],
+                "right": [7],
+                "top": [5],
+                "bottom": []
+            }
+
+        },
+        {
+            "sectionId": 7,
+            "size": {
+                "width": 0.5,
+                "height": 0.25
+            },
+            "offset": {
+                "width": 0.5,
+                "height": 0.75
+            },
+            "neighbors": {
+                "left": [6],
+                "right": [],
+                "top": [5],
+                "bottom": []
+            }
+
+        }
+    ]
+}
+
+

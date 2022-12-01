@@ -10,7 +10,7 @@ import SwiftUI
 
 class MouseHover: ObservableObject, Equatable {
     static func == (lhs: MouseHover, rhs: MouseHover) -> Bool {
-        return (lhs.location == rhs.location && lhs.section?.uuid == rhs.section?.uuid)
+        return (lhs.location == rhs.location && lhs.section?.sectionId == rhs.section?.sectionId)
     }
 
     @Published var section: Section?
@@ -35,27 +35,28 @@ class Sections: ObservableObject {
 
     init(initialLayout: DecodableSections?) {
         guard let decodableSections = initialLayout?.sections else { return }
+
+        // set sections
         sections.append(contentsOf: decodableSections.map { Section.fromDecodableSection($0) })
 
+        // section section neighbors
         decodableSections.enumerated().forEach { index, decodableSection in
             sections[index].leftNeighbors = sections.filter {
-                decodableSection.neighbors.left.firstIndex(of: $0.title) != nil
+                decodableSection.neighbors.left.firstIndex(of: $0.sectionId) != nil
             }
             sections[index].rightNeighbors = sections.filter {
-                decodableSection.neighbors.right.firstIndex(of: $0.title) != nil
+                decodableSection.neighbors.right.firstIndex(of: $0.sectionId) != nil
             }
             sections[index].topNeighbors = sections.filter {
-                decodableSection.neighbors.top.firstIndex(of: $0.title) != nil
+                decodableSection.neighbors.top.firstIndex(of: $0.sectionId) != nil
             }
             sections[index].bottomNeighbors = sections.filter {
-                decodableSection.neighbors.bottom.firstIndex(of: $0.title) != nil
+                decodableSection.neighbors.bottom.firstIndex(of: $0.sectionId) != nil
             }
         }
+
+        // set extended neighbor relationships (*should* be loaded from initial layout)
         sections.forEach {
-            $0.rightNeighborsLeftNeighbors = Array(Set($0.rightNeighbors.flatMap { $0.leftNeighbors }))
-            $0.leftNeighborsRightNeighbors = Array(Set($0.leftNeighbors.flatMap { $0.rightNeighbors }))
-            $0.topNeighborsBottomNeighbors = Array(Set($0.topNeighbors.flatMap { $0.bottomNeighbors }))
-            $0.bottomNeighborsTopNeighbors = Array(Set($0.bottomNeighbors.flatMap { $0.topNeighbors }))
             $0.topNeighborsSameWidthAndX = topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors)
             $0.bottomNeighborsSameWidthAndX = bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors)
         }
@@ -63,14 +64,14 @@ class Sections: ObservableObject {
 
     func topNeighborsSameWidthAndXRecursive(for section: Section, with topNeighbors: [Section] ) -> [Section] {
         let topNeighborsWithSameWithAndX = topNeighbors.filter {
-            $0.widthMutiplier == section.widthMutiplier && $0.widthZStackOffset == section.widthZStackOffset
+            $0.width == section.width && $0.widthOffset == section.widthOffset
         }
         return topNeighborsWithSameWithAndX + topNeighborsWithSameWithAndX.flatMap { topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors) }
     }
 
     func bottomNeighborsSameWidthAndXRecursive(for section: Section, with bottomNeighbors: [Section] ) -> [Section] {
         let bottomNeighborsWithSameWithAndX = bottomNeighbors.filter {
-            $0.widthMutiplier == section.widthMutiplier && $0.widthZStackOffset == section.widthZStackOffset
+            $0.width == section.width && $0.widthOffset == section.widthOffset
         }
         return bottomNeighborsWithSameWithAndX + bottomNeighborsWithSameWithAndX.flatMap { bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors) }
     }
@@ -97,30 +98,30 @@ struct SectionsView: View {
 
     var body: some View {
 
-        let myGesture = DragGesture(minimumDistance: 0, coordinateSpace: .global).onChanged({
+        let gloalDragGesture = DragGesture(minimumDistance: 0, coordinateSpace: .global).onChanged({
             globalSectionDrag = $0
         }).onEnded({ _ in
             globalSectionDrag = nil
         })
 
         ZStack(alignment: .topLeading) {
-            ForEach(sections.sections, id: \.title) { section in
+            ForEach(sections.sections, id: \.sectionId) { section in
                 SectionView(section: section,
                             sectionDragging: $sectionDragging,
                             sectionDrag: $sectionDrag,
                             sectionHovering: $sectionHovering,
                             sectionHover: $sectionHover)
                     .frame(
-                        width: (section.widthMutiplier * homeSize.width) + section.widthMultiplierAdjustment,
-                        height: (section.heightMultiplier * homeSize.height) + section.heightMultiplierAdjustment
+                        width: (section.width * homeSize.width) + section.widthAdjustment,
+                        height: (section.height * homeSize.height) + section.heightAdjustment
                     )
                     .offset(
                         CGSize(
-                            width: (section.widthZStackOffset * homeSize.width) + section.widthZStackOffsetAdjustment,
-                            height: (section.heightZStackOffset * homeSize.height) + section.heightZStackOffsetAdjustment
+                            width: (section.widthOffset * homeSize.width) + section.widthOffsetAdjustment,
+                            height: (section.heightOffset * homeSize.height) + section.heightOffsetAdjustment
                         )
                     )
-                    .simultaneousGesture(myGesture)
+                    .simultaneousGesture(gloalDragGesture)
 
             }
         }
@@ -166,15 +167,14 @@ struct SectionsView: View {
     func handleEndedSectionDrag() {
         // which type?
         sections.sections.forEach {
-            $0.widthMutiplier = $0.widthMutiplier + ($0.widthMultiplierAdjustment / homeSize.width)
-            $0.widthZStackOffset = $0.widthZStackOffset + ($0.widthZStackOffsetAdjustment / homeSize.width)
-            $0.widthMultiplierAdjustment = 0.0
-            $0.widthZStackOffsetAdjustment = 0.0
-            print("setting \($0.title) height: multiplier to: \($0.heightMultiplier + ($0.heightMultiplierAdjustment / homeSize.height))")
-            $0.heightMultiplier = $0.heightMultiplier + ($0.heightMultiplierAdjustment / homeSize.height)
-            $0.heightZStackOffset = $0.heightZStackOffset + ($0.heightZStackOffsetAdjustment / homeSize.height)
-            $0.heightMultiplierAdjustment = 0.0
-            $0.heightZStackOffsetAdjustment = 0.0
+            $0.width = $0.width + ($0.widthAdjustment / homeSize.width)
+            $0.widthOffset = $0.widthOffset + ($0.widthOffsetAdjustment / homeSize.width)
+            $0.widthAdjustment = 0.0
+            $0.widthOffsetAdjustment = 0.0
+            $0.height = $0.height + ($0.heightAdjustment / homeSize.height)
+            $0.heightOffset = $0.heightOffset + ($0.heightOffsetAdjustment / homeSize.height)
+            $0.heightAdjustment = 0.0
+            $0.heightOffsetAdjustment = 0.0
         }
     }
 
@@ -185,21 +185,21 @@ struct SectionsView: View {
             let leftNeighbors = sectionDragging.leftNeighbors
             let rightNeighbors = Array(Set(leftNeighbors.flatMap { $0.rightNeighbors }))
             leftNeighbors.forEach {
-                $0.widthMultiplierAdjustment = dX
+                $0.widthAdjustment = dX
             }
             rightNeighbors.forEach {
-                $0.widthMultiplierAdjustment = -dX
-                $0.widthZStackOffsetAdjustment = dX
+                $0.widthAdjustment = -dX
+                $0.widthOffsetAdjustment = dX
             }
         } else if dX < 0 {
             let leftNeighbors = sectionDragging.leftNeighbors
             let rightNeighbors = Array(Set(leftNeighbors.flatMap { $0.rightNeighbors }))
             leftNeighbors.forEach {
-                $0.widthMultiplierAdjustment = dX
+                $0.widthAdjustment = dX
             }
             rightNeighbors.forEach {
-                $0.widthMultiplierAdjustment = -dX
-                $0.widthZStackOffsetAdjustment = dX
+                $0.widthAdjustment = -dX
+                $0.widthOffsetAdjustment = dX
             }
         }
     }
@@ -211,21 +211,21 @@ struct SectionsView: View {
             let rightNeighbors = sectionDragging.rightNeighbors
             let leftNeighbors = Array(Set(rightNeighbors.flatMap { $0.leftNeighbors }))
             leftNeighbors.forEach {
-                $0.widthMultiplierAdjustment = dX
+                $0.widthAdjustment = dX
             }
             rightNeighbors.forEach {
-                $0.widthMultiplierAdjustment = -dX
-                $0.widthZStackOffsetAdjustment = dX
+                $0.widthAdjustment = -dX
+                $0.widthOffsetAdjustment = dX
             }
         } else if dX < 0 {
             let rightNeighbors = sectionDragging.rightNeighbors
             let leftNeighbors = Array(Set(rightNeighbors.flatMap { $0.leftNeighbors }))
             leftNeighbors.forEach {
-                $0.widthMultiplierAdjustment = dX
+                $0.widthAdjustment = dX
             }
             rightNeighbors.forEach {
-                $0.widthMultiplierAdjustment = -dX
-                $0.widthZStackOffsetAdjustment = dX
+                $0.widthAdjustment = -dX
+                $0.widthOffsetAdjustment = dX
             }
         }
     }
@@ -238,14 +238,14 @@ struct SectionsView: View {
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
             bottomNeighbors.forEach {
-                $0.heightMultiplierAdjustment = -dY
-                $0.heightZStackOffsetAdjustment = dY
+                $0.heightAdjustment = -dY
+                $0.heightOffsetAdjustment = dY
             }
             topNeighborGroups.forEach { group in
                 group.enumerated().forEach { (index, section) in
                     let dividedDeltaY = dY / CGFloat(group.count)
-                    section.heightZStackOffsetAdjustment = dividedDeltaY * CGFloat(index)
-                    section.heightMultiplierAdjustment = dividedDeltaY
+                    section.heightOffsetAdjustment = dividedDeltaY * CGFloat(index)
+                    section.heightAdjustment = dividedDeltaY
                 }
             }
         } else if dY > 0 {
@@ -254,13 +254,13 @@ struct SectionsView: View {
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
             topNeighborGroups.forEach { group in
                 group.enumerated().forEach { (index, section) in
-                    section.heightZStackOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
-                    section.heightMultiplierAdjustment = dY / CGFloat(group.count)
+                    section.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    section.heightAdjustment = dY / CGFloat(group.count)
                 }
             }
             bottomNeighbors.forEach {
-                $0.heightMultiplierAdjustment = -dY
-                $0.heightZStackOffsetAdjustment = dY
+                $0.heightAdjustment = -dY
+                $0.heightOffsetAdjustment = dY
             }
         }
     }
@@ -271,29 +271,29 @@ struct SectionsView: View {
         if dY < 0 {
             let bottomNeighbors = sectionDragging.bottomNeighbors
             bottomNeighbors.forEach {
-                $0.heightMultiplierAdjustment = -dY
-                $0.heightZStackOffsetAdjustment = dY
+                $0.heightAdjustment = -dY
+                $0.heightOffsetAdjustment = dY
             }
             let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             topNeighborGroups.forEach { group in
                 group.enumerated().forEach { (index, section) in
-                    section.heightZStackOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
-                    section.heightMultiplierAdjustment = (dY / CGFloat(group.count))
+                    section.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    section.heightAdjustment = (dY / CGFloat(group.count))
                 }
             }
         } else if dY > 0 {
             let bottomNeighbors = sectionDragging.bottomNeighbors
             bottomNeighbors.forEach {
-                $0.heightMultiplierAdjustment = -dY
-                $0.heightZStackOffsetAdjustment = dY
+                $0.heightAdjustment = -dY
+                $0.heightOffsetAdjustment = dY
             }
             let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             topNeighborGroups.forEach { group in
                 group.enumerated().forEach { (index, section) in
-                    section.heightZStackOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
-                    section.heightMultiplierAdjustment = (dY / CGFloat(group.count))
+                    section.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    section.heightAdjustment = (dY / CGFloat(group.count))
                 }
             }
         }
@@ -336,14 +336,14 @@ struct SectionsView: View {
     func onLeftEdge(at location: CGPoint, for section: Section) -> Bool { location.x < hoverResizeThreshold }
 
     func onRightEdge(at location: CGPoint, for section: Section) -> Bool {
-        let sectionWidth = section.widthMutiplier * homeSize.width
+        let sectionWidth = section.width * homeSize.width
         return location.x > sectionWidth - hoverResizeThreshold
     }
 
     func onTopEdge(at location: CGPoint, for section: Section) -> Bool { location.y < hoverResizeThreshold }
 
     func onBottomEdge(at location: CGPoint, for section: Section) -> Bool {
-        let sectionHeight = section.heightMultiplier * homeSize.height
+        let sectionHeight = section.height * homeSize.height
         return location.y > sectionHeight - hoverResizeThreshold
     }
 }

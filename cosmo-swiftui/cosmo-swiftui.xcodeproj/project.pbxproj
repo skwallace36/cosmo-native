@@ -11,6 +11,7 @@
 		92117742293808F700D6C874 /* SectionsDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117741293808F700D6C874 /* SectionsDecodable.swift */; };
 		92117744293810D300D6C874 /* ComplexLayoutOne.json in Sources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
 		92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
+		9211774729384FF600D6C874 /* ComplexLayoutTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 9211774629384FF600D6C874 /* ComplexLayoutTwo.json */; };
 		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
 		9214A647292FD3D10072B012 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Section.swift */; };
 		9214A649292FD3D50072B012 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Sections.swift */; };
@@ -28,6 +29,7 @@
 		9211773F2938089600D6C874 /* SectionDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDecodable.swift; sourceTree = "<group>"; };
 		92117741293808F700D6C874 /* SectionsDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsDecodable.swift; sourceTree = "<group>"; };
 		92117743293810D300D6C874 /* ComplexLayoutOne.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutOne.json; sourceTree = "<group>"; };
+		9211774629384FF600D6C874 /* ComplexLayoutTwo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutTwo.json; sourceTree = "<group>"; };
 		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		9214A646292FD3D10072B012 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		9214A648292FD3D50072B012 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				92A856F82936C0DA0050F352 /* ThreeColumns.json */,
 				92117743293810D300D6C874 /* ComplexLayoutOne.json */,
+				9211774629384FF600D6C874 /* ComplexLayoutTwo.json */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */,
 				92319DC129268CF3005675C9 /* Preview Assets.xcassets in Resources */,
 				92319DBE29268CF3005675C9 /* Assets.xcassets in Resources */,
+				9211774729384FF600D6C874 /* ComplexLayoutTwo.json in Resources */,
 				92A856F92936C0DA0050F352 /* ThreeColumns.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

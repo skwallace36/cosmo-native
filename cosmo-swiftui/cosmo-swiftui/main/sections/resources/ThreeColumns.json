@@ -1,7 +1,7 @@
 {
     "sections": [
         {
-            "id": 1,
+            "sectionId": 1,
             "size": {
                 "width": 0.25,
                 "height": 1.0
@@ -18,7 +18,7 @@
             }
         },
         {
-            "id": 2,
+            "sectionId": 2,
             "size": {
                 "width": 0.375,
                 "height": 1.0
@@ -36,7 +36,7 @@
 
         },
         {
-            "id": 3,
+            "sectionId": 3,
             "size": {
                 "width": 0.375,
                 "height": 1.0
