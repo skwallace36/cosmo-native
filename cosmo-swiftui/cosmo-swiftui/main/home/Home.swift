@@ -11,29 +11,24 @@ import SwiftUI
 struct HomeView: View {
 
     @State var homeSize: CGSize = .zero
-//    var sections: Secti
-    var initialLayout: DecodableSections? {
-//        guard let initialLayoutPath = Bundle.main.path(forResource: "ThreeColumns", ofType: "json") else { return nil }
-//        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutTwo", ofType: "json") else { return nil }
 
+    var initialLayout: DecodableSections?
+    var sections: Sections
+    init() {
         var decodableSections: DecodableSections?
+        if let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") {
+            if let initialLayoutData = try? Data(contentsOf: URL(fileURLWithPath: initialLayoutPath)) {
+                do {
+                    decodableSections = try JSONDecoder().decode(DecodableSections.self, from: initialLayoutData)
+                } catch let error { print(error) }
+            }
 
-        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") else {
-            print("failed to load initialLayoutPath: ComplexLayoutOne")
-            return nil
         }
-        guard let initialLayoutData = try? Data(contentsOf: URL(fileURLWithPath: initialLayoutPath)) else {
-            print("failed to create initialLayoutData for path: \(initialLayoutPath)")
-            return nil
-        }
-        do {
-            decodableSections = try JSONDecoder().decode(DecodableSections.self, from: initialLayoutData)
-        } catch let error { print(error) }
-        return decodableSections
+        initialLayout = decodableSections
+        sections = Sections(initialLayout: initialLayout)
     }
 
     var body: some View {
-        var sections = Sections(initialLayout: initialLayout)
         GeometryReader { geo in
             VStack(spacing: 0) {
                 SectionsView(

@@ -13,6 +13,7 @@
 		92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
 		9211774729384FF600D6C874 /* ComplexLayoutTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 9211774629384FF600D6C874 /* ComplexLayoutTwo.json */; };
 		921177492939211D00D6C874 /* SectionResizeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921177482939211D00D6C874 /* SectionResizeHandler.swift */; };
+		9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774A293A607400D6C874 /* ResizeEnums.swift */; };
 		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
 		9214A647292FD3D10072B012 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Section.swift */; };
 		9214A649292FD3D50072B012 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Sections.swift */; };
@@ -32,6 +33,7 @@
 		92117743293810D300D6C874 /* ComplexLayoutOne.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutOne.json; sourceTree = "<group>"; };
 		9211774629384FF600D6C874 /* ComplexLayoutTwo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutTwo.json; sourceTree = "<group>"; };
 		921177482939211D00D6C874 /* SectionResizeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResizeHandler.swift; sourceTree = "<group>"; };
+		9211774A293A607400D6C874 /* ResizeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeEnums.swift; sourceTree = "<group>"; };
 		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		9214A646292FD3D10072B012 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		9214A648292FD3D50072B012 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				9214A648292FD3D50072B012 /* Sections.swift */,
 				92117741293808F700D6C874 /* SectionsDecodable.swift */,
 				921177482939211D00D6C874 /* SectionResizeHandler.swift */,
+				9211774A293A607400D6C874 /* ResizeEnums.swift */,
 			);
 			path = sections;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				921177492939211D00D6C874 /* SectionResizeHandler.swift in Sources */,
 				92319DBC29268CF2005675C9 /* ContentView.swift in Sources */,
 				9214A649292FD3D50072B012 /* Sections.swift in Sources */,
+				9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */,
 				92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */,
 				92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */,
 				9214A647292FD3D10072B012 /* Section.swift in Sources */,

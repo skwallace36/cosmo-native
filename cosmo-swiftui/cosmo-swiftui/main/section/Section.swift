@@ -7,27 +7,12 @@
 
 import SwiftUI
 
-
-enum ResizeType {
-    case Horizontal
-    case Vertical
-}
-
-enum ResizeEdge {
-    case Left
-    case Right
-    case Top
-    case Bottom
-}
-
-
 extension Section: Equatable, Identifiable, Hashable {
     static func == (lhs: Section, rhs: Section) -> Bool { lhs.sectionId == rhs.sectionId }
     func hash(into hasher: inout Hasher) { hasher.combine(sectionId) }
 }
 
 class Section: ObservableObject  {
-
     static func fromDecodableSection(_ decodableSection: DecodableSection) -> Section {
         return Section(
             sectionId: decodableSection.sectionId,
@@ -71,11 +56,7 @@ class Section: ObservableObject  {
 struct SectionView: View {
 
     @StateObject var section: Section
-
     var resizeHandler: SectionsResizeHandler
-
-//    @Binding var sectionHover: HoverPhase?
-
 
     var body: some View {
         let localDrag = DragGesture(minimumDistance: 3, coordinateSpace: .named("section")).onChanged({

@@ -6,21 +6,6 @@
 //
 
 import SwiftUI
-        
-
-class MouseHover: ObservableObject, Equatable {
-    static func == (lhs: MouseHover, rhs: MouseHover) -> Bool {
-        return (lhs.location == rhs.location && lhs.section?.sectionId == rhs.section?.sectionId)
-    }
-
-    @Published var section: Section?
-    @Published var location: CGPoint?
-
-    func update(with section: Section?, and location: CGPoint?) {
-        self.section = section
-        self.location = location
-    }
-}
 
 class Sections: ObservableObject {
     @Published var sections: [Section] = []
@@ -75,15 +60,12 @@ class Sections: ObservableObject {
     }
 }
 
-
 struct SectionsView: View {
 
     @StateObject var sections: Sections
     @StateObject var resizeHandler: SectionsResizeHandler
 
     @Binding var homeSize: CGSize
-
-
 
     var body: some View {
 
