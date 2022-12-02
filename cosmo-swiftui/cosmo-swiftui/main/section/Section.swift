@@ -72,20 +72,18 @@ struct SectionView: View {
 
     @StateObject var section: Section
 
-    var resizeHandler: SectionResizeHandler
+    var resizeHandler: SectionsResizeHandler
 
-    @Binding var sectionDrag: DragGesture.Value?
-    @Binding var sectionHovering: Section?
-    @Binding var sectionHover: HoverPhase?
+//    @Binding var sectionHover: HoverPhase?
 
 
     var body: some View {
-        let myGesture = DragGesture(minimumDistance: 3, coordinateSpace: .named("section")).onChanged({
+        let localDrag = DragGesture(minimumDistance: 3, coordinateSpace: .named("section")).onChanged({
             resizeHandler.startSection = section
-            sectionDrag = $0
+            resizeHandler.localSectionDrag = $0
         }).onEnded({ _ in
-            resizeHandler.dragInSectionOver()
-            sectionDrag = nil
+            resizeHandler.localSectionDragOver()
+            resizeHandler.localSectionDrag = nil
         })
         HStack(spacing: 0) {
             Spacer()
@@ -98,10 +96,10 @@ struct SectionView: View {
         }
         .coordinateSpace(name: "section")
         .background(section.backgroundColor)
-        .gesture(myGesture)
+        .gesture(localDrag)
         .onContinuousHover { phase in
-            sectionHovering = section
-            sectionHover = phase
+            resizeHandler.sectionHovering = section
+            resizeHandler.sectionHover = phase
         }
     }
 }

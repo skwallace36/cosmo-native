@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeView: View {
 
     @State var homeSize: CGSize = .zero
+//    var sections: Secti
     var initialLayout: DecodableSections? {
 //        guard let initialLayoutPath = Bundle.main.path(forResource: "ThreeColumns", ofType: "json") else { return nil }
 //        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutTwo", ofType: "json") else { return nil }
@@ -32,10 +33,11 @@ struct HomeView: View {
     }
 
     var body: some View {
+        var sections = Sections(initialLayout: initialLayout)
         GeometryReader { geo in
             VStack(spacing: 0) {
                 SectionsView(
-                    sections: Sections(initialLayout: initialLayout), homeSize: $homeSize
+                    sections: sections, resizeHandler: SectionsResizeHandler(homeSize: $homeSize, sections: sections), homeSize: $homeSize
                 )
             }
         }.bindGeometry(to: $homeSize) { $0.size }
