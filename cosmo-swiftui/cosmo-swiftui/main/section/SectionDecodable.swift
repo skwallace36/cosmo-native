@@ -16,6 +16,12 @@ struct DecodableSection: Decodable {
 
 struct DecodableNeighbors: Decodable {
     let left, right, top, bottom: [Int]
+    var topSameWidthAndX: [Int]? = nil
+    var verticalSameWidthAndX: DecodableVerticalSameWithAndX?
+}
+
+struct DecodableVerticalSameWithAndX: Decodable {
+    let up, down: [Int]?
 }
 
 struct DecodableSize: Decodable {

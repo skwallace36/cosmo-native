@@ -8,6 +8,19 @@
 import SwiftUI
 
 
+enum ResizeType {
+    case Horizontal
+    case Vertical
+}
+
+enum ResizeEdge {
+    case Left
+    case Right
+    case Top
+    case Bottom
+}
+
+
 extension Section: Equatable, Identifiable, Hashable {
     static func == (lhs: Section, rhs: Section) -> Bool { lhs.sectionId == rhs.sectionId }
     func hash(into hasher: inout Hasher) { hasher.combine(sectionId) }
@@ -59,7 +72,8 @@ struct SectionView: View {
 
     @StateObject var section: Section
 
-    @Binding var sectionDragging: Section?
+    var resizeHandler: SectionResizeHandler
+
     @Binding var sectionDrag: DragGesture.Value?
     @Binding var sectionHovering: Section?
     @Binding var sectionHover: HoverPhase?
@@ -67,10 +81,10 @@ struct SectionView: View {
 
     var body: some View {
         let myGesture = DragGesture(minimumDistance: 3, coordinateSpace: .named("section")).onChanged({
-            sectionDragging = section
+            resizeHandler.startSection = section
             sectionDrag = $0
         }).onEnded({ _ in
-            sectionDragging = nil
+            resizeHandler.dragInSectionOver()
             sectionDrag = nil
         })
         HStack(spacing: 0) {
@@ -78,8 +92,6 @@ struct SectionView: View {
             VStack(spacing: 0) {
                 Spacer()
                 Text("\(section.sectionId)").fontWeight(.bold).font(.system(size: 20))
-                Text("\(section.height)")
-                Text("\(section.heightOffset)")
                 Spacer()
             }
             Spacer()

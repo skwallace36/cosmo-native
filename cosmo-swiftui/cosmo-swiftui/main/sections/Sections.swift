@@ -22,18 +22,13 @@ class MouseHover: ObservableObject, Equatable {
     }
 }
 
-enum ResizeEdge {
-    case Left
-    case Right
-    case Top
-    case Bottom
-}
-
 class Sections: ObservableObject {
     @Published var sections: [Section] = []
     var initialLayout: DecodableSections? = nil
 
     init(initialLayout: DecodableSections?) {
+
+        // create decodable section objects from initial layout json
         guard let decodableSections = initialLayout?.sections else { return }
 
         // set sections
@@ -53,12 +48,14 @@ class Sections: ObservableObject {
             sections[index].bottomNeighbors = sections.filter {
                 decodableSection.neighbors.bottom.firstIndex(of: $0.sectionId) != nil
             }
-        }
 
-        // set extended neighbor relationships (*should* be loaded from initial layout)
-        sections.forEach {
-            $0.topNeighborsSameWidthAndX = topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors)
-            $0.bottomNeighborsSameWidthAndX = bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors)
+            sections[index].topNeighborsSameWidthAndX = sections.filter {
+                decodableSection.neighbors.verticalSameWidthAndX?.up?.firstIndex(of: $0.sectionId) != nil
+            }
+
+            sections[index].bottomNeighborsSameWidthAndX = sections.filter {
+                decodableSection.neighbors.verticalSameWidthAndX?.down?.firstIndex(of: $0.sectionId) != nil
+            }
         }
     }
 
@@ -77,9 +74,13 @@ class Sections: ObservableObject {
     }
 }
 
+
+
+
 struct SectionsView: View {
 
     @StateObject var sections: Sections
+    @StateObject var resizeHandler = SectionResizeHandler()
 
     @Binding var homeSize: CGSize
 
@@ -89,7 +90,6 @@ struct SectionsView: View {
     @State var globalSectionDrag: DragGesture.Value? = nil
     @State var sectionHovering: Section?
     @State var sectionHover: HoverPhase?
-    @State var canResizeASection: Bool = false
     @State var beganDragEdge: ResizeEdge?
     @State var currentlyResizingSection = false
 
@@ -107,7 +107,7 @@ struct SectionsView: View {
         ZStack(alignment: .topLeading) {
             ForEach(sections.sections, id: \.sectionId) { section in
                 SectionView(section: section,
-                            sectionDragging: $sectionDragging,
+                            resizeHandler: resizeHandler,
                             sectionDrag: $sectionDrag,
                             sectionHovering: $sectionHovering,
                             sectionHover: $sectionHover)
@@ -149,8 +149,7 @@ struct SectionsView: View {
     }
 
     func handleActiveSectionDrag(newValue: DragGesture.Value?) {
-        guard sectionDragging != nil else { return }
-        switch beganDragEdge {
+        switch resizeHandler.startEdge {
         case .Left:
             handleDragFromLeftEdge(newValue)
         case .Right:
@@ -179,11 +178,10 @@ struct SectionsView: View {
     }
 
     func handleDragFromLeftEdge(_ dragEvent: DragGesture.Value?) {
-        guard let sectionDragging = sectionDragging, let globalSectionDrag = globalSectionDrag else { return }
-        let dX = globalSectionDrag.translation.width
+        let dX = globalSectionDrag?.translation.width ?? 0.0
         if dX > 0 {
-            let leftNeighbors = sectionDragging.leftNeighbors
-            let rightNeighbors = Array(Set(leftNeighbors.flatMap { $0.rightNeighbors }))
+            let leftNeighbors = resizeHandler.startSection?.leftNeighbors ?? []
+            let rightNeighbors = Array(Set((leftNeighbors).flatMap { $0.rightNeighbors }))
             leftNeighbors.forEach {
                 $0.widthAdjustment = dX
             }
@@ -192,9 +190,9 @@ struct SectionsView: View {
                 $0.widthOffsetAdjustment = dX
             }
         } else if dX < 0 {
-            let leftNeighbors = sectionDragging.leftNeighbors
-            let rightNeighbors = Array(Set(leftNeighbors.flatMap { $0.rightNeighbors }))
-            leftNeighbors.forEach {
+            let leftNeighbors = resizeHandler.startSection?.leftNeighbors
+            let rightNeighbors = Array(Set((leftNeighbors ?? []).flatMap { $0.rightNeighbors }))
+            leftNeighbors?.forEach {
                 $0.widthAdjustment = dX
             }
             rightNeighbors.forEach {
@@ -205,10 +203,9 @@ struct SectionsView: View {
     }
 
     func handleDragFromRightEdge(_ dragEvent: DragGesture.Value?) {
-        guard let sectionDragging = sectionDragging, let globalSectionDrag = globalSectionDrag else { return }
-        let dX = globalSectionDrag.translation.width
+        let dX = globalSectionDrag?.translation.width ?? 0.0
         if dX > 0 {
-            let rightNeighbors = sectionDragging.rightNeighbors
+            let rightNeighbors = resizeHandler.startSection?.rightNeighbors ?? []
             let leftNeighbors = Array(Set(rightNeighbors.flatMap { $0.leftNeighbors }))
             leftNeighbors.forEach {
                 $0.widthAdjustment = dX
@@ -218,7 +215,7 @@ struct SectionsView: View {
                 $0.widthOffsetAdjustment = dX
             }
         } else if dX < 0 {
-            let rightNeighbors = sectionDragging.rightNeighbors
+            let rightNeighbors = resizeHandler.startSection?.rightNeighbors ?? []
             let leftNeighbors = Array(Set(rightNeighbors.flatMap { $0.leftNeighbors }))
             leftNeighbors.forEach {
                 $0.widthAdjustment = dX
@@ -231,10 +228,9 @@ struct SectionsView: View {
     }
 
     func handleDragFromTopEdge(_ dragEvent: DragGesture.Value?) {
-        guard let sectionDragging = sectionDragging, let globalSectionDrag = globalSectionDrag else { return }
-        let dY = globalSectionDrag.translation.height
+        let dY = globalSectionDrag?.translation.height ?? 0.0
         if dY < 0 {
-            let topNeighbors = sectionDragging.topNeighbors
+            let topNeighbors = resizeHandler.startSection?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
             bottomNeighbors.forEach {
@@ -249,7 +245,7 @@ struct SectionsView: View {
                 }
             }
         } else if dY > 0 {
-            let topNeighbors = sectionDragging.topNeighbors
+            let topNeighbors = resizeHandler.startSection?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
             topNeighborGroups.forEach { group in
@@ -266,10 +262,9 @@ struct SectionsView: View {
     }
 
     func handleDragFromBottomEdge(_ dragEvent: DragGesture.Value?) {
-        guard let sectionDragging = sectionDragging, let globalSectionDrag = globalSectionDrag else { return }
-        let dY = globalSectionDrag.translation.height
+        let dY = globalSectionDrag?.translation.height ?? 0
         if dY < 0 {
-            let bottomNeighbors = sectionDragging.bottomNeighbors
+            let bottomNeighbors = resizeHandler.startSection?.bottomNeighbors ?? []
             bottomNeighbors.forEach {
                 $0.heightAdjustment = -dY
                 $0.heightOffsetAdjustment = dY
@@ -283,7 +278,7 @@ struct SectionsView: View {
                 }
             }
         } else if dY > 0 {
-            let bottomNeighbors = sectionDragging.bottomNeighbors
+            let bottomNeighbors = resizeHandler.startSection?.bottomNeighbors ?? []
             bottomNeighbors.forEach {
                 $0.heightAdjustment = -dY
                 $0.heightOffsetAdjustment = dY
@@ -306,27 +301,28 @@ struct SectionsView: View {
     func setCursor(at location: CGPoint) {
         guard sectionDragging == nil else { return }
         guard let sectionHovering = sectionHovering else { return }
+        
         if onLeftEdge(at: location, for: sectionHovering) {
             if NSCursor.current != NSCursor.resizeLeftRight { NSCursor.resizeLeftRight.popThenPush() }
-            beganDragEdge = .Left
+            resizeHandler.startEdge = .Left
             return
         }
 
         if onRightEdge(at: location, for: sectionHovering) {
             if NSCursor.current != NSCursor.resizeLeftRight { NSCursor.resizeLeftRight.popThenPush() }
-            beganDragEdge = .Right
+            resizeHandler.startEdge = .Right
             return
         }
 
         if onTopEdge(at: location, for: sectionHovering) {
             if NSCursor.current != NSCursor.resizeUpDown { NSCursor.resizeUpDown.popThenPush() }
-            beganDragEdge = .Top
+            resizeHandler.startEdge = .Top
             return
         }
 
         if onBottomEdge(at: location, for: sectionHovering) {
             if NSCursor.current != NSCursor.resizeUpDown { NSCursor.resizeUpDown.popThenPush() }
-            beganDragEdge = .Bottom
+            resizeHandler.startEdge = .Bottom
             return
         }
 

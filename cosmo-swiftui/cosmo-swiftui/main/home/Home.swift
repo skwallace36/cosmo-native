@@ -12,10 +12,22 @@ struct HomeView: View {
 
     @State var homeSize: CGSize = .zero
     var initialLayout: DecodableSections? {
-//        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") else { return nil }
-        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutTwo", ofType: "json") else { return nil }
-        guard let initialLayoutData = try? Data(contentsOf: URL(fileURLWithPath: initialLayoutPath)) else { return nil }
-        guard let decodableSections = try? JSONDecoder().decode(DecodableSections.self, from: initialLayoutData) else { return nil }
+//        guard let initialLayoutPath = Bundle.main.path(forResource: "ThreeColumns", ofType: "json") else { return nil }
+//        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutTwo", ofType: "json") else { return nil }
+
+        var decodableSections: DecodableSections?
+
+        guard let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") else {
+            print("failed to load initialLayoutPath: ComplexLayoutOne")
+            return nil
+        }
+        guard let initialLayoutData = try? Data(contentsOf: URL(fileURLWithPath: initialLayoutPath)) else {
+            print("failed to create initialLayoutData for path: \(initialLayoutPath)")
+            return nil
+        }
+        do {
+            decodableSections = try JSONDecoder().decode(DecodableSections.self, from: initialLayoutData)
+        } catch let error { print(error) }
         return decodableSections
     }
 
