@@ -18,11 +18,10 @@
 		92117750293BE02200D6C874 /* BlockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774F293BE02200D6C874 /* BlockBorder.swift */; };
 		92117752293C42DB00D6C874 /* CheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117751293C42DB00D6C874 /* CheckCircle.swift */; };
 		92117754293D870D00D6C874 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117753293D870D00D6C874 /* ListRow.swift */; };
-		92117756293E593500D6C874 /* ListSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117755293E593500D6C874 /* ListSectionItem.swift */; };
 		92117758293E906700D6C874 /* BlockContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117757293E906700D6C874 /* BlockContainerView.swift */; };
 		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
 		9214A647292FD3D10072B012 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Block.swift */; };
-		9214A649292FD3D50072B012 /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Blocks.swift */; };
+		9214A649292FD3D50072B012 /* BlocksLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* BlocksLayout.swift */; };
 		92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */; };
 		92319DBC29268CF2005675C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DBB29268CF2005675C9 /* ContentView.swift */; };
 		92319DBE29268CF3005675C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92319DBD29268CF3005675C9 /* Assets.xcassets */; };
@@ -33,7 +32,9 @@
 		9282DD132947DA9F00453CE6 /* BlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD122947DA9F00453CE6 /* BlockType.swift */; };
 		9282DD152947DAB600453CE6 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD142947DAB600453CE6 /* BlockView.swift */; };
 		9282DD192948DCD900453CE6 /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD182948DCD900453CE6 /* BlockContainer.swift */; };
-		9282DD1B2948DD9000453CE6 /* SectionContainerContextMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1A2948DD9000453CE6 /* SectionContainerContextMenuAction.swift */; };
+		9282DD1B2948DD9000453CE6 /* BlockContainerContextMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1A2948DD9000453CE6 /* BlockContainerContextMenuAction.swift */; };
+		9282DD1D2948DFB600453CE6 /* ListBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1C2948DFB600453CE6 /* ListBlockView.swift */; };
+		9282DD1F2948E29800453CE6 /* BlocksLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1E2948E29800453CE6 /* BlocksLayoutView.swift */; };
 		92A856F92936C0DA0050F352 /* ThreeColumns.json in Resources */ = {isa = PBXBuildFile; fileRef = 92A856F82936C0DA0050F352 /* ThreeColumns.json */; };
 /* End PBXBuildFile section */
 
@@ -48,11 +49,10 @@
 		9211774F293BE02200D6C874 /* BlockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBorder.swift; sourceTree = "<group>"; };
 		92117751293C42DB00D6C874 /* CheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCircle.swift; sourceTree = "<group>"; };
 		92117753293D870D00D6C874 /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
-		92117755293E593500D6C874 /* ListSectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionItem.swift; sourceTree = "<group>"; };
 		92117757293E906700D6C874 /* BlockContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerView.swift; sourceTree = "<group>"; };
 		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		9214A646292FD3D10072B012 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
-		9214A648292FD3D50072B012 /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
+		9214A648292FD3D50072B012 /* BlocksLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksLayout.swift; sourceTree = "<group>"; };
 		92319DB629268CF2005675C9 /* cosmo-swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cosmo-swiftui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cosmo_swiftuiApp.swift; sourceTree = "<group>"; };
 		92319DBB29268CF2005675C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,7 +65,9 @@
 		9282DD122947DA9F00453CE6 /* BlockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockType.swift; sourceTree = "<group>"; };
 		9282DD142947DAB600453CE6 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		9282DD182948DCD900453CE6 /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
-		9282DD1A2948DD9000453CE6 /* SectionContainerContextMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContainerContextMenuAction.swift; sourceTree = "<group>"; };
+		9282DD1A2948DD9000453CE6 /* BlockContainerContextMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerContextMenuAction.swift; sourceTree = "<group>"; };
+		9282DD1C2948DFB600453CE6 /* ListBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockView.swift; sourceTree = "<group>"; };
+		9282DD1E2948E29800453CE6 /* BlocksLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksLayoutView.swift; sourceTree = "<group>"; };
 		92A856F82936C0DA0050F352 /* ThreeColumns.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ThreeColumns.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,7 +88,7 @@
 				9211774D293BCF0300D6C874 /* ListBlock.swift */,
 				92117751293C42DB00D6C874 /* CheckCircle.swift */,
 				92117753293D870D00D6C874 /* ListRow.swift */,
-				92117755293E593500D6C874 /* ListSectionItem.swift */,
+				9282DD1C2948DFB600453CE6 /* ListBlockView.swift */,
 			);
 			path = list_block;
 			sourceTree = "<group>";
@@ -96,10 +98,9 @@
 			children = (
 				9282DD112947D52700453CE6 /* block_resize_handler */,
 				9282DD102947D4B000453CE6 /* block_container */,
-				9211774C293BCEE300D6C874 /* list_block */,
 				92A856ED2936BC600050F352 /* home */,
 				92A856EC2936BC5A0050F352 /* block */,
-				92A856EB2936BC530050F352 /* blocks */,
+				92A856EB2936BC530050F352 /* blocks_layout */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -147,7 +148,7 @@
 		9282DD102947D4B000453CE6 /* block_container */ = {
 			isa = PBXGroup;
 			children = (
-				9282DD162948DC9600453CE6 /* content_menu */,
+				9282DD162948DC9600453CE6 /* context_menu */,
 				92117757293E906700D6C874 /* BlockContainerView.swift */,
 				9282DD182948DCD900453CE6 /* BlockContainer.swift */,
 			);
@@ -163,33 +164,35 @@
 			path = block_resize_handler;
 			sourceTree = "<group>";
 		};
-		9282DD162948DC9600453CE6 /* content_menu */ = {
+		9282DD162948DC9600453CE6 /* context_menu */ = {
 			isa = PBXGroup;
 			children = (
-				9282DD1A2948DD9000453CE6 /* SectionContainerContextMenuAction.swift */,
+				9282DD1A2948DD9000453CE6 /* BlockContainerContextMenuAction.swift */,
 			);
-			path = content_menu;
+			path = context_menu;
 			sourceTree = "<group>";
 		};
-		92A856EB2936BC530050F352 /* blocks */ = {
+		92A856EB2936BC530050F352 /* blocks_layout */ = {
 			isa = PBXGroup;
 			children = (
 				92A856F42936BD5D0050F352 /* resources */,
-				9214A648292FD3D50072B012 /* Blocks.swift */,
+				9214A648292FD3D50072B012 /* BlocksLayout.swift */,
 				92117741293808F700D6C874 /* BlocksDecodable.swift */,
+				9282DD1E2948E29800453CE6 /* BlocksLayoutView.swift */,
 			);
-			path = blocks;
+			path = blocks_layout;
 			sourceTree = "<group>";
 		};
 		92A856EC2936BC5A0050F352 /* block */ = {
 			isa = PBXGroup;
 			children = (
+				9211774C293BCEE300D6C874 /* list_block */,
 				92A856F12936BCA80050F352 /* mocks */,
 				9214A646292FD3D10072B012 /* Block.swift */,
+				9282DD142947DAB600453CE6 /* BlockView.swift */,
 				9211773F2938089600D6C874 /* BlockDecodable.swift */,
 				9211774F293BE02200D6C874 /* BlockBorder.swift */,
 				9282DD122947DA9F00453CE6 /* BlockType.swift */,
-				9282DD142947DAB600453CE6 /* BlockView.swift */,
 			);
 			path = block;
 			sourceTree = "<group>";
@@ -302,12 +305,13 @@
 			files = (
 				921177492939211D00D6C874 /* BlockResizeHandler.swift in Sources */,
 				92319DBC29268CF2005675C9 /* ContentView.swift in Sources */,
-				9214A649292FD3D50072B012 /* Blocks.swift in Sources */,
+				9214A649292FD3D50072B012 /* BlocksLayout.swift in Sources */,
 				9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */,
-				92117756293E593500D6C874 /* ListSectionItem.swift in Sources */,
-				9282DD1B2948DD9000453CE6 /* SectionContainerContextMenuAction.swift in Sources */,
+				9282DD1B2948DD9000453CE6 /* BlockContainerContextMenuAction.swift in Sources */,
 				9282DD192948DCD900453CE6 /* BlockContainer.swift in Sources */,
 				92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */,
+				9282DD1D2948DFB600453CE6 /* ListBlockView.swift in Sources */,
+				9282DD1F2948E29800453CE6 /* BlocksLayoutView.swift in Sources */,
 				9211774E293BCF0300D6C874 /* ListBlock.swift in Sources */,
 				92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */,
 				92117754293D870D00D6C874 /* ListRow.swift in Sources */,

@@ -19,7 +19,7 @@ struct BlockContainerView: View {
         }).onEnded({ _ in
             resizeHandler.localBlockDrag = nil
         })
-        BlockView(block: block, resizeHandler: resizeHandler)
+        BlockView(block: block).background(.pink)
         .overlay {
             Rectangle()
                 .fill(.clear)
@@ -28,9 +28,9 @@ struct BlockContainerView: View {
                 .coordinateSpace(name: "block")
                 .contextMenu {
                     ForEach(container.contextMenuActions, id: \.self) { action in
-                        Button(action.label, action: {
-                            
-                        })
+                        Button(action.label) {
+                            clickedContextMenuAction(action)
+                        }
                     }
 
                 }
@@ -38,6 +38,17 @@ struct BlockContainerView: View {
         .onContinuousHover { phase in
             resizeHandler.blockHovering = block
             resizeHandler.blockHover = phase
+        }.onAppear {
+            print("on appear block view")
+        }
+    }
+
+    func clickedContextMenuAction(_ action: BlockContainerContextMenuAction) {
+        switch action {
+        case .Split(let splitDirection):
+            print("split")
+        case .Close:
+            print("close")
         }
     }
 }

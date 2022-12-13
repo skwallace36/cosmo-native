@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-class Blocks: ObservableObject {
+class BlocksLayout: ObservableObject {
     @Published var blocks: [Block] = []
 
-    var initialLayout: DecodableBlocks? = nil
+    @Published var initialLayout: DecodableBlocks? = nil { didSet { setBlocksLayout() }}
 
-    init(initialLayout: DecodableBlocks?) {
-
+    func setBlocksLayout() {
         // create decodable block objects from initial layout json
-        guard let decodableBlocks = initialLayout?.blocks else { return }
+        guard let decodableBlocks = initialLayout?.blocksLayout else { return }
 
-        // set blocks
+        // set blocksLayout
         blocks.append(contentsOf: decodableBlocks.map { Block.fromDecodableBlock($0) })
 
         // block block neighbors
@@ -57,40 +56,5 @@ class Blocks: ObservableObject {
             $0.width == block.width && $0.widthOffset == block.widthOffset
         }
         return bottomNeighborsWithSameWithAndX + bottomNeighborsWithSameWithAndX.flatMap { bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors) }
-    }
-}
-
-struct BlocksView: View {
-
-    @StateObject var blocks: Blocks
-    @StateObject var resizeHandler: BlocksResizeHandler
-
-    @Binding var homeSize: CGSize
-
-    var body: some View {
-
-        let gloalDragGesture = DragGesture(minimumDistance: 0, coordinateSpace: .global).onChanged({
-            resizeHandler.globalBlockDrag = $0
-        }).onEnded({ _ in
-            resizeHandler.globalBlockDrag = nil
-        })
-
-        ZStack(alignment: .topLeading) {
-            ForEach(blocks.blocks, id: \.blockId) { block in
-                BlockContainerView(container: BlockContainer(block, resizeHandler))
-                .frame(
-                    width: (block.width * $homeSize.width.wrappedValue) + block.widthAdjustment,
-                    height: (block.height * $homeSize.height.wrappedValue) + block.heightAdjustment
-                )
-                .offset(
-                    CGSize(
-                        width: (block.widthOffset * homeSize.width) + block.widthOffsetAdjustment,
-                        height: (block.heightOffset * homeSize.height) + block.heightOffsetAdjustment
-                    )
-                )
-                .simultaneousGesture(gloalDragGesture)
-            }
-
-        }
     }
 }

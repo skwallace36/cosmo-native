@@ -9,7 +9,10 @@ import SwiftUI
 
 
 extension Block: Equatable, Identifiable, Hashable {
-    static func == (lhs: Block, rhs: Block) -> Bool { lhs.blockId == rhs.blockId }
+    static func == (lhs: Block, rhs: Block) -> Bool {
+        lhs.blockId == rhs.blockId
+
+    }
     func hash(into hasher: inout Hasher) { hasher.combine(blockId) }
 }
 

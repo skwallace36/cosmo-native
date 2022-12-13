@@ -32,14 +32,14 @@ class BlocksResizeHandler: ObservableObject {
         }
     }
     @Binding var homeSize: CGSize
-    var blocks: Blocks
+    var blocksLayout: BlocksLayout
     let hoverResizeThreshold: CGFloat = 5.0
 
     @Published var activelyResizing = false
 
-    init(homeSize: Binding<CGSize>, blocks: Blocks) {
+    init(homeSize: Binding<CGSize>, blocksLayout: BlocksLayout) {
         self._homeSize = homeSize
-        self.blocks = blocks
+        self.blocksLayout = blocksLayout
     }
 
     var resizeType: ResizeType? {
@@ -72,7 +72,7 @@ class BlocksResizeHandler: ObservableObject {
     }
 
     func globalBlockDragOver(at location: CGPoint?) {
-        blocks.blocks.forEach {
+        blocksLayout.blocks.forEach {
             $0.width = $0.width + ($0.widthAdjustment / homeSize.width)
             $0.widthOffset = $0.widthOffset + ($0.widthOffsetAdjustment / homeSize.width)
             $0.widthAdjustment = 0.0
@@ -86,8 +86,6 @@ class BlocksResizeHandler: ObservableObject {
         guard let location = location else { return }
         setCursor(at: location)
     }
-
-
 
 
     func localBlockDragActive(newValue: DragGesture.Value) {

@@ -8,5 +8,5 @@
 import Foundation
 
 struct DecodableBlocks: Decodable {
-    let blocks: [DecodableBlock]
+    let blocksLayout: [DecodableBlock]
 }

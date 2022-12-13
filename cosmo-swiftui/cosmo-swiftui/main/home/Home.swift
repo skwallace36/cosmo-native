@@ -13,7 +13,8 @@ struct HomeView: View {
     @State var homeSize: CGSize = .zero
 
     var initialLayout: DecodableBlocks?
-    var blocks: Blocks
+    @StateObject var blocksLayout = BlocksLayout()
+
     init() {
         var decodableBlocks: DecodableBlocks?
         if let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") {
@@ -25,17 +26,20 @@ struct HomeView: View {
 
         }
         initialLayout = decodableBlocks
-        blocks = Blocks(initialLayout: initialLayout)
     }
 
     var body: some View {
+
         GeometryReader { geo in
             VStack(spacing: 0) {
-                BlocksView(
-                    blocks: blocks, resizeHandler: BlocksResizeHandler(homeSize: $homeSize, blocks: blocks), homeSize: $homeSize
-                )
+                BlocksLayoutView(
+                    blocksLayout: blocksLayout, resizeHandler: BlocksResizeHandler(homeSize: $homeSize, blocksLayout: blocksLayout))
             }
         }.bindGeometry(to: $homeSize) { $0.size }
+            .task {
+                blocksLayout.initialLayout = initialLayout
+            }
+            
     }
 }
 

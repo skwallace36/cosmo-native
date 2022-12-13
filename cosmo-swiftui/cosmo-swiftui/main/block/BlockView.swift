@@ -10,7 +10,6 @@ import SwiftUI
 struct BlockView: View {
 
     @StateObject var block: Block
-    var resizeHandler: BlocksResizeHandler
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
             Rectangle()
