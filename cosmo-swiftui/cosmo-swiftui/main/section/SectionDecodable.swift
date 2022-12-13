@@ -9,6 +9,7 @@ import Foundation
 
 struct DecodableSection: Decodable {
     let sectionId: Int
+    let sectionType: String?
     let size: DecodableSize
     let offset: DecodableOffset
     let neighbors: DecodableNeighbors
@@ -32,4 +33,17 @@ struct DecodableSize: Decodable {
 struct DecodableOffset: Decodable {
     let width: Double
     let height: Double
+}
+
+extension Section {
+    static func fromDecodableSection(_ decodableSection: DecodableSection) -> Section {
+        return Section(
+            sectionId: decodableSection.sectionId,
+            sectionType: SectionType(string: decodableSection.sectionType ?? "Empty"),
+            width: decodableSection.size.width,
+            height: decodableSection.size.height,
+            widthOffset: decodableSection.offset.width,
+            heightOffset: decodableSection.offset.height
+        )
+    }
 }

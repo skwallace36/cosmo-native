@@ -11,8 +11,7 @@ struct ContentView: View {
 
     var body: some View {
         GeometryReader { geo in
-            HomeView()
+            HomeView().onAppear { NSCursor.arrow.push()}
         }
-
     }
 }

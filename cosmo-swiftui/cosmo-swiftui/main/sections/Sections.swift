@@ -77,19 +77,20 @@ struct SectionsView: View {
 
         ZStack(alignment: .topLeading) {
             ForEach(sections.sections, id: \.sectionId) { section in
-                SectionView(section: section, resizeHandler: resizeHandler)
-                    .frame(
-                        width: (section.width * homeSize.width) + section.widthAdjustment,
-                        height: (section.height * homeSize.height) + section.heightAdjustment
+                SectionContainerView(container: SectionContainer(section, resizeHandler))
+                .frame(
+                    width: (section.width * $homeSize.width.wrappedValue) + section.widthAdjustment,
+                    height: (section.height * $homeSize.height.wrappedValue) + section.heightAdjustment
+                )
+                .offset(
+                    CGSize(
+                        width: (section.widthOffset * homeSize.width) + section.widthOffsetAdjustment,
+                        height: (section.heightOffset * homeSize.height) + section.heightOffsetAdjustment
                     )
-                    .offset(
-                        CGSize(
-                            width: (section.widthOffset * homeSize.width) + section.widthOffsetAdjustment,
-                            height: (section.heightOffset * homeSize.height) + section.heightOffsetAdjustment
-                        )
-                    )
-                    .simultaneousGesture(gloalDragGesture)
+                )
+                .simultaneousGesture(gloalDragGesture)
             }
+
         }
     }
 }

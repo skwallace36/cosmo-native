@@ -12,16 +12,14 @@ class SectionsResizeHandler: ObservableObject {
     @Published var startSection: Section? = nil
     @Published var localSectionDrag: DragGesture.Value? {
         didSet {
-            DispatchQueue.main.async { [localSectionDrag] in
-                if oldValue != nil && localSectionDrag == nil {
-                    self.globalSectionDragOver()
-                } else if oldValue != nil && localSectionDrag != nil {
-                    self.handleActiveSectionDrag(newValue: localSectionDrag)
-                }
-            }
+            self.handleLocalSectionDrag(oldValue: oldValue, newValue: localSectionDrag)
         }
     }
-    @Published var globalSectionDrag: DragGesture.Value?
+    @Published var globalSectionDrag: DragGesture.Value? {
+        didSet {
+            self.handleGlobalSectionDrag(oldValue: oldValue, newValue: globalSectionDrag)
+        }
+    }
     @Published var sectionHovering: Section?
     @Published var sectionHover: HoverPhase? {
         didSet {
@@ -37,6 +35,7 @@ class SectionsResizeHandler: ObservableObject {
     var sections: Sections
     let hoverResizeThreshold: CGFloat = 5.0
 
+    @Published var activelyResizing = false
 
     init(homeSize: Binding<CGSize>, sections: Sections) {
         self._homeSize = homeSize
@@ -54,12 +53,25 @@ class SectionsResizeHandler: ObservableObject {
         }
     }
 
-    func localSectionDragOver() {
-        startEdge = nil
-        startSection = nil
+
+
+    func handleGlobalSectionDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
+        if newValue == nil && oldValue != nil {
+            globalSectionDragOver(at: oldValue?.location)
+            return
+        }
     }
 
-    func globalSectionDragOver() {
+    func handleLocalSectionDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
+        if newValue == nil && oldValue != nil {
+            globalSectionDragOver(at: oldValue?.location)
+            return
+        }
+        guard let newValue = newValue else { return }
+        localSectionDragActive(newValue: newValue)
+    }
+
+    func globalSectionDragOver(at location: CGPoint?) {
         sections.sections.forEach {
             $0.width = $0.width + ($0.widthAdjustment / homeSize.width)
             $0.widthOffset = $0.widthOffset + ($0.widthOffsetAdjustment / homeSize.width)
@@ -70,20 +82,27 @@ class SectionsResizeHandler: ObservableObject {
             $0.heightAdjustment = 0.0
             $0.heightOffsetAdjustment = 0.0
         }
+        activelyResizing = false
+        guard let location = location else { return }
+        setCursor(at: location)
     }
 
-    func handleEndedSectionDrag() {
-    }
 
-    func handleActiveSectionDrag(newValue: DragGesture.Value?) {
+
+
+    func localSectionDragActive(newValue: DragGesture.Value) {
         switch startEdge {
         case .Left:
+            activelyResizing = true
             handleDragFromLeftEdge(newValue)
         case .Right:
+            activelyResizing = true
             handleDragFromRightEdge(newValue)
         case .Top:
+            activelyResizing = true
             handleDragFromTopEdge(newValue)
         case .Bottom:
+            activelyResizing = true
             handleDragFromBottomEdge(newValue)
         case .none:
             break
@@ -94,7 +113,7 @@ class SectionsResizeHandler: ObservableObject {
         setCursor(at: location)
     }
     func setCursor(at location: CGPoint) {
-        guard startSection == nil else { return }
+        guard activelyResizing != true else { return }
         guard let sectionHovering = sectionHovering else { return }
 
         if onLeftEdge(at: location, for: sectionHovering) {
@@ -121,7 +140,10 @@ class SectionsResizeHandler: ObservableObject {
             return
         }
 
-        NSCursor.arrow.popThenPush()
+        if NSCursor.current != NSCursor.arrow {
+            NSCursor.pop()
+        }
+        startEdge = .none
     }
 
     func onLeftEdge(at location: CGPoint, for section: Section) -> Bool { location.x < hoverResizeThreshold }
