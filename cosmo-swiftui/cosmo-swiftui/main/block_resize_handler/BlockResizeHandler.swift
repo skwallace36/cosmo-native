@@ -1,5 +1,5 @@
 //
-//  SectionResizeEvent.swift
+//  BlockResizeEvent.swift
 //  cosmo-swiftui
 //
 //  Created by Stuart Wallace on 12/1/22.
@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-class SectionsResizeHandler: ObservableObject {
+class BlocksResizeHandler: ObservableObject {
     @Published var startEdge: ResizeEdge? = nil
-    @Published var startSection: Section? = nil
-    @Published var localSectionDrag: DragGesture.Value? {
+    @Published var startBlock: Block? = nil
+    @Published var localBlockDrag: DragGesture.Value? {
         didSet {
-            self.handleLocalSectionDrag(oldValue: oldValue, newValue: localSectionDrag)
+            self.handleLocalBlockDrag(oldValue: oldValue, newValue: localBlockDrag)
         }
     }
-    @Published var globalSectionDrag: DragGesture.Value? {
+    @Published var globalBlockDrag: DragGesture.Value? {
         didSet {
-            self.handleGlobalSectionDrag(oldValue: oldValue, newValue: globalSectionDrag)
+            self.handleGlobalBlockDrag(oldValue: oldValue, newValue: globalBlockDrag)
         }
     }
-    @Published var sectionHovering: Section?
-    @Published var sectionHover: HoverPhase? {
+    @Published var blockHovering: Block?
+    @Published var blockHover: HoverPhase? {
         didSet {
-            switch sectionHover {
+            switch blockHover {
             case .active(let location):
                 handleActiveHover(at: location)
             case .ended, .none:
@@ -32,14 +32,14 @@ class SectionsResizeHandler: ObservableObject {
         }
     }
     @Binding var homeSize: CGSize
-    var sections: Sections
+    var blocks: Blocks
     let hoverResizeThreshold: CGFloat = 5.0
 
     @Published var activelyResizing = false
 
-    init(homeSize: Binding<CGSize>, sections: Sections) {
+    init(homeSize: Binding<CGSize>, blocks: Blocks) {
         self._homeSize = homeSize
-        self.sections = sections
+        self.blocks = blocks
     }
 
     var resizeType: ResizeType? {
@@ -55,24 +55,24 @@ class SectionsResizeHandler: ObservableObject {
 
 
 
-    func handleGlobalSectionDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
+    func handleGlobalBlockDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
         if newValue == nil && oldValue != nil {
-            globalSectionDragOver(at: oldValue?.location)
+            globalBlockDragOver(at: oldValue?.location)
             return
         }
     }
 
-    func handleLocalSectionDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
+    func handleLocalBlockDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
         if newValue == nil && oldValue != nil {
-            globalSectionDragOver(at: oldValue?.location)
+            globalBlockDragOver(at: oldValue?.location)
             return
         }
         guard let newValue = newValue else { return }
-        localSectionDragActive(newValue: newValue)
+        localBlockDragActive(newValue: newValue)
     }
 
-    func globalSectionDragOver(at location: CGPoint?) {
-        sections.sections.forEach {
+    func globalBlockDragOver(at location: CGPoint?) {
+        blocks.blocks.forEach {
             $0.width = $0.width + ($0.widthAdjustment / homeSize.width)
             $0.widthOffset = $0.widthOffset + ($0.widthOffsetAdjustment / homeSize.width)
             $0.widthAdjustment = 0.0
@@ -90,7 +90,7 @@ class SectionsResizeHandler: ObservableObject {
 
 
 
-    func localSectionDragActive(newValue: DragGesture.Value) {
+    func localBlockDragActive(newValue: DragGesture.Value) {
         switch startEdge {
         case .Left:
             activelyResizing = true
@@ -114,27 +114,27 @@ class SectionsResizeHandler: ObservableObject {
     }
     func setCursor(at location: CGPoint) {
         guard activelyResizing != true else { return }
-        guard let sectionHovering = sectionHovering else { return }
+        guard let blockHovering = blockHovering else { return }
 
-        if onLeftEdge(at: location, for: sectionHovering) {
+        if onLeftEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeLeftRight { NSCursor.resizeLeftRight.popThenPush() }
             startEdge = .Left
             return
         }
 
-        if onRightEdge(at: location, for: sectionHovering) {
+        if onRightEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeLeftRight { NSCursor.resizeLeftRight.popThenPush() }
             startEdge = .Right
             return
         }
 
-        if onTopEdge(at: location, for: sectionHovering) {
+        if onTopEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeUpDown { NSCursor.resizeUpDown.popThenPush() }
             startEdge = .Top
             return
         }
 
-        if onBottomEdge(at: location, for: sectionHovering) {
+        if onBottomEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeUpDown { NSCursor.resizeUpDown.popThenPush() }
             startEdge = .Bottom
             return
@@ -146,24 +146,24 @@ class SectionsResizeHandler: ObservableObject {
         startEdge = .none
     }
 
-    func onLeftEdge(at location: CGPoint, for section: Section) -> Bool { location.x < hoverResizeThreshold }
+    func onLeftEdge(at location: CGPoint, for block: Block) -> Bool { location.x < hoverResizeThreshold }
 
-    func onRightEdge(at location: CGPoint, for section: Section) -> Bool {
-        let sectionWidth = section.width * homeSize.width
-        return location.x > sectionWidth - hoverResizeThreshold
+    func onRightEdge(at location: CGPoint, for block: Block) -> Bool {
+        let blockWidth = block.width * homeSize.width
+        return location.x > blockWidth - hoverResizeThreshold
     }
 
-    func onTopEdge(at location: CGPoint, for section: Section) -> Bool { location.y < hoverResizeThreshold }
+    func onTopEdge(at location: CGPoint, for block: Block) -> Bool { location.y < hoverResizeThreshold }
 
-    func onBottomEdge(at location: CGPoint, for section: Section) -> Bool {
-        let sectionHeight = section.height * homeSize.height
-        return location.y > sectionHeight - hoverResizeThreshold
+    func onBottomEdge(at location: CGPoint, for block: Block) -> Bool {
+        let blockHeight = block.height * homeSize.height
+        return location.y > blockHeight - hoverResizeThreshold
     }
 
     func handleDragFromLeftEdge(_ dragEvent: DragGesture.Value?) {
-        let dX = globalSectionDrag?.translation.width ?? 0.0
+        let dX = globalBlockDrag?.translation.width ?? 0.0
         if dX > 0 {
-            let leftNeighbors = startSection?.leftNeighbors ?? []
+            let leftNeighbors = startBlock?.leftNeighbors ?? []
             let rightNeighbors = Array(Set((leftNeighbors).flatMap { $0.rightNeighbors }))
             leftNeighbors.forEach {
                 $0.widthAdjustment = dX
@@ -173,7 +173,7 @@ class SectionsResizeHandler: ObservableObject {
                 $0.widthOffsetAdjustment = dX
             }
         } else if dX < 0 {
-            let leftNeighbors = startSection?.leftNeighbors
+            let leftNeighbors = startBlock?.leftNeighbors
             let rightNeighbors = Array(Set((leftNeighbors ?? []).flatMap { $0.rightNeighbors }))
             leftNeighbors?.forEach {
                 $0.widthAdjustment = dX
@@ -186,9 +186,9 @@ class SectionsResizeHandler: ObservableObject {
     }
 
     func handleDragFromRightEdge(_ dragEvent: DragGesture.Value?) {
-        let dX = globalSectionDrag?.translation.width ?? 0.0
+        let dX = globalBlockDrag?.translation.width ?? 0.0
         if dX > 0 {
-            let rightNeighbors = startSection?.rightNeighbors ?? []
+            let rightNeighbors = startBlock?.rightNeighbors ?? []
             let leftNeighbors = Array(Set(rightNeighbors.flatMap { $0.leftNeighbors }))
             leftNeighbors.forEach {
                 $0.widthAdjustment = dX
@@ -198,7 +198,7 @@ class SectionsResizeHandler: ObservableObject {
                 $0.widthOffsetAdjustment = dX
             }
         } else if dX < 0 {
-            let rightNeighbors = startSection?.rightNeighbors ?? []
+            let rightNeighbors = startBlock?.rightNeighbors ?? []
             let leftNeighbors = Array(Set(rightNeighbors.flatMap { $0.leftNeighbors }))
             leftNeighbors.forEach {
                 $0.widthAdjustment = dX
@@ -211,9 +211,9 @@ class SectionsResizeHandler: ObservableObject {
     }
 
     func handleDragFromTopEdge(_ dragEvent: DragGesture.Value?) {
-        let dY = globalSectionDrag?.translation.height ?? 0.0
+        let dY = globalBlockDrag?.translation.height ?? 0.0
         if dY < 0 {
-            let topNeighbors = startSection?.topNeighbors ?? []
+            let topNeighbors = startBlock?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
             bottomNeighbors.forEach {
@@ -221,20 +221,20 @@ class SectionsResizeHandler: ObservableObject {
                 $0.heightOffsetAdjustment = dY
             }
             topNeighborGroups.forEach { group in
-                group.enumerated().forEach { (index, section) in
+                group.enumerated().forEach { (index, block) in
                     let dividedDeltaY = dY / CGFloat(group.count)
-                    section.heightOffsetAdjustment = dividedDeltaY * CGFloat(index)
-                    section.heightAdjustment = dividedDeltaY
+                    block.heightOffsetAdjustment = dividedDeltaY * CGFloat(index)
+                    block.heightAdjustment = dividedDeltaY
                 }
             }
         } else if dY > 0 {
-            let topNeighbors = startSection?.topNeighbors ?? []
+            let topNeighbors = startBlock?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
             topNeighborGroups.forEach { group in
-                group.enumerated().forEach { (index, section) in
-                    section.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
-                    section.heightAdjustment = dY / CGFloat(group.count)
+                group.enumerated().forEach { (index, block) in
+                    block.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    block.heightAdjustment = dY / CGFloat(group.count)
                 }
             }
             bottomNeighbors.forEach {
@@ -245,9 +245,9 @@ class SectionsResizeHandler: ObservableObject {
     }
 
     func handleDragFromBottomEdge(_ dragEvent: DragGesture.Value?) {
-        let dY = globalSectionDrag?.translation.height ?? 0
+        let dY = globalBlockDrag?.translation.height ?? 0
         if dY < 0 {
-            let bottomNeighbors = startSection?.bottomNeighbors ?? []
+            let bottomNeighbors = startBlock?.bottomNeighbors ?? []
             bottomNeighbors.forEach {
                 $0.heightAdjustment = -dY
                 $0.heightOffsetAdjustment = dY
@@ -255,13 +255,13 @@ class SectionsResizeHandler: ObservableObject {
             let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             topNeighborGroups.forEach { group in
-                group.enumerated().forEach { (index, section) in
-                    section.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
-                    section.heightAdjustment = (dY / CGFloat(group.count))
+                group.enumerated().forEach { (index, block) in
+                    block.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    block.heightAdjustment = (dY / CGFloat(group.count))
                 }
             }
         } else if dY > 0 {
-            let bottomNeighbors = startSection?.bottomNeighbors ?? []
+            let bottomNeighbors = startBlock?.bottomNeighbors ?? []
             bottomNeighbors.forEach {
                 $0.heightAdjustment = -dY
                 $0.heightOffsetAdjustment = dY
@@ -269,9 +269,9 @@ class SectionsResizeHandler: ObservableObject {
             let topNeighbors = Array(Set(bottomNeighbors.flatMap { $0.topNeighbors }))
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             topNeighborGroups.forEach { group in
-                group.enumerated().forEach { (index, section) in
-                    section.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
-                    section.heightAdjustment = (dY / CGFloat(group.count))
+                group.enumerated().forEach { (index, block) in
+                    block.heightOffsetAdjustment = (dY / CGFloat(group.count)) * CGFloat(index)
+                    block.heightAdjustment = (dY / CGFloat(group.count))
                 }
             }
         }

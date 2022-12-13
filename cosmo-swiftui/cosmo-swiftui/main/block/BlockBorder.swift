@@ -1,5 +1,5 @@
 //
-//  SectionBorder.swift
+//  BlockBorder.swift
 //  cosmo-swiftui
 //
 //  Created by Stuart Wallace on 12/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SectionBorder: Shape {
+struct BlockBorder: Shape {
 
     var width: CGFloat
     var trailing: Edge?

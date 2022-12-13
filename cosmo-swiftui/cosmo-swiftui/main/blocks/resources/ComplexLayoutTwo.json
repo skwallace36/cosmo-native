@@ -1,7 +1,7 @@
 {
-    "sections": [
+    "blocks": [
         {
-            "sectionId": 1,
+            "blockId": 1,
             "size": {
                 "width": 0.25,
                 "height": 0.25
@@ -18,7 +18,7 @@
             }
         },
         {
-            "sectionId": 2,
+            "blockId": 2,
             "size": {
                 "width": 0.25,
                 "height": 0.25
@@ -36,7 +36,7 @@
 
         },
         {
-            "sectionId": 3,
+            "blockId": 3,
             "size": {
                 "width": 0.375,
                 "height": 0.5
@@ -54,7 +54,7 @@
 
         },
         {
-            "sectionId": 4,
+            "blockId": 4,
             "size": {
                 "width": 0.375,
                 "height": 0.5
@@ -72,7 +72,7 @@
 
         },
         {
-            "sectionId": 5,
+            "blockId": 5,
             "size": {
                 "width": 1.0,
                 "height": 0.25
@@ -90,7 +90,7 @@
 
         },
         {
-            "sectionId": 6,
+            "blockId": 6,
             "size": {
                 "width": 0.5,
                 "height": 0.25
@@ -108,7 +108,7 @@
 
         },
         {
-            "sectionId": 7,
+            "blockId": 7,
             "size": {
                 "width": 0.5,
                 "height": 0.25

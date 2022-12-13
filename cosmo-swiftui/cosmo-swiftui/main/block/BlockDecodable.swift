@@ -1,5 +1,5 @@
 //
-//  SectionDecodable.swift
+//  BlockDecodable.swift
 //  cosmo-swiftui
 //
 //  Created by Stuart Wallace on 11/30/22.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct DecodableSection: Decodable {
-    let sectionId: Int
-    let sectionType: String?
+struct DecodableBlock: Decodable {
+    let blockId: Int
+    let blockType: String?
     let size: DecodableSize
     let offset: DecodableOffset
     let neighbors: DecodableNeighbors
@@ -35,15 +35,15 @@ struct DecodableOffset: Decodable {
     let height: Double
 }
 
-extension Section {
-    static func fromDecodableSection(_ decodableSection: DecodableSection) -> Section {
-        return Section(
-            sectionId: decodableSection.sectionId,
-            sectionType: SectionType(string: decodableSection.sectionType ?? "Empty"),
-            width: decodableSection.size.width,
-            height: decodableSection.size.height,
-            widthOffset: decodableSection.offset.width,
-            heightOffset: decodableSection.offset.height
+extension Block {
+    static func fromDecodableBlock(_ decodableBlock: DecodableBlock) -> Block {
+        return Block(
+            blockId: decodableBlock.blockId,
+            blockType: BlockType(string: decodableBlock.blockType ?? "Empty"),
+            width: decodableBlock.size.width,
+            height: decodableBlock.size.height,
+            widthOffset: decodableBlock.offset.width,
+            heightOffset: decodableBlock.offset.height
         )
     }
 }

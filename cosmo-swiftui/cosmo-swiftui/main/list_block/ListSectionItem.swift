@@ -1,5 +1,5 @@
 //
-//  ListSectionItem.swift
+//  ListBlockItem.swift
 //  cosmo-swiftui
 //
 //  Created by Stuart Wallace on 12/5/22.

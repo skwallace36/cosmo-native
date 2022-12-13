@@ -1,5 +1,5 @@
 //
-//  SectionType.swift
+//  BlockType.swift
 //  cosmo-swiftui
 //
 //  Created by Stuart Wallace on 12/12/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SectionType: String {
+enum BlockType: String {
     case List
     case Empty
     init(string: String) {

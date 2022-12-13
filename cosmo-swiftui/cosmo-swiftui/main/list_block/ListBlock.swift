@@ -1,5 +1,5 @@
 //
-//  ListSection.swift
+//  ListBlock.swift
 //  cosmo-swiftui
 //
 //  Created by Stuart Wallace on 12/3/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-class ListSection: ObservableObject {
+class ListBlock: ObservableObject {
     @Published var columns = [GridItem(.adaptive(minimum: 20.0), alignment: .topLeading)]
     @Published var rows = [
         ListRow(0, "row1", checked: false),
@@ -18,15 +18,15 @@ class ListSection: ObservableObject {
     @Published var rowTapped: ListRow?
 }
 
-struct ListSectionView: View {
+struct ListBlockView: View {
 
-    @StateObject var listSection = ListSection()
+    @StateObject var listBlock = ListBlock()
 
 
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                ForEach(listSection.rows, id: \.self) { row in
+                ForEach(listBlock.rows, id: \.self) { row in
                     HStack(spacing: 0) {
                         VStack(spacing: 0) {
                             Text(row.text)

@@ -12,27 +12,27 @@ struct HomeView: View {
 
     @State var homeSize: CGSize = .zero
 
-    var initialLayout: DecodableSections?
-    var sections: Sections
+    var initialLayout: DecodableBlocks?
+    var blocks: Blocks
     init() {
-        var decodableSections: DecodableSections?
+        var decodableBlocks: DecodableBlocks?
         if let initialLayoutPath = Bundle.main.path(forResource: "ComplexLayoutOne", ofType: "json") {
             if let initialLayoutData = try? Data(contentsOf: URL(fileURLWithPath: initialLayoutPath)) {
                 do {
-                    decodableSections = try JSONDecoder().decode(DecodableSections.self, from: initialLayoutData)
+                    decodableBlocks = try JSONDecoder().decode(DecodableBlocks.self, from: initialLayoutData)
                 } catch let error { print(error) }
             }
 
         }
-        initialLayout = decodableSections
-        sections = Sections(initialLayout: initialLayout)
+        initialLayout = decodableBlocks
+        blocks = Blocks(initialLayout: initialLayout)
     }
 
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: 0) {
-                SectionsView(
-                    sections: sections, resizeHandler: SectionsResizeHandler(homeSize: $homeSize, sections: sections), homeSize: $homeSize
+                BlocksView(
+                    blocks: blocks, resizeHandler: BlocksResizeHandler(homeSize: $homeSize, blocks: blocks), homeSize: $homeSize
                 )
             }
         }.bindGeometry(to: $homeSize) { $0.size }

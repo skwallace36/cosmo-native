@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		921177402938089600D6C874 /* SectionDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211773F2938089600D6C874 /* SectionDecodable.swift */; };
-		92117742293808F700D6C874 /* SectionsDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117741293808F700D6C874 /* SectionsDecodable.swift */; };
+		921177402938089600D6C874 /* BlockDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211773F2938089600D6C874 /* BlockDecodable.swift */; };
+		92117742293808F700D6C874 /* BlocksDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117741293808F700D6C874 /* BlocksDecodable.swift */; };
 		92117744293810D300D6C874 /* ComplexLayoutOne.json in Sources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
 		92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
 		9211774729384FF600D6C874 /* ComplexLayoutTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 9211774629384FF600D6C874 /* ComplexLayoutTwo.json */; };
-		921177492939211D00D6C874 /* SectionResizeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921177482939211D00D6C874 /* SectionResizeHandler.swift */; };
+		921177492939211D00D6C874 /* BlockResizeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921177482939211D00D6C874 /* BlockResizeHandler.swift */; };
 		9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774A293A607400D6C874 /* ResizeEnums.swift */; };
-		9211774E293BCF0300D6C874 /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774D293BCF0300D6C874 /* ListSection.swift */; };
-		92117750293BE02200D6C874 /* SectionBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774F293BE02200D6C874 /* SectionBorder.swift */; };
+		9211774E293BCF0300D6C874 /* ListBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774D293BCF0300D6C874 /* ListBlock.swift */; };
+		92117750293BE02200D6C874 /* BlockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774F293BE02200D6C874 /* BlockBorder.swift */; };
 		92117752293C42DB00D6C874 /* CheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117751293C42DB00D6C874 /* CheckCircle.swift */; };
 		92117754293D870D00D6C874 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117753293D870D00D6C874 /* ListRow.swift */; };
 		92117756293E593500D6C874 /* ListSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117755293E593500D6C874 /* ListSectionItem.swift */; };
-		92117758293E906700D6C874 /* SectionContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117757293E906700D6C874 /* SectionContainerView.swift */; };
+		92117758293E906700D6C874 /* BlockContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117757293E906700D6C874 /* BlockContainerView.swift */; };
 		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
-		9214A647292FD3D10072B012 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Section.swift */; };
-		9214A649292FD3D50072B012 /* Sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Sections.swift */; };
+		9214A647292FD3D10072B012 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Block.swift */; };
+		9214A649292FD3D50072B012 /* Blocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* Blocks.swift */; };
 		92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */; };
 		92319DBC29268CF2005675C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DBB29268CF2005675C9 /* ContentView.swift */; };
 		92319DBE29268CF3005675C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92319DBD29268CF3005675C9 /* Assets.xcassets */; };
@@ -30,29 +30,29 @@
 		92319DCF29297FDE005675C9 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCE29297FDE005675C9 /* Home.swift */; };
 		92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */; };
 		92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */; };
-		9282DD132947DA9F00453CE6 /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD122947DA9F00453CE6 /* SectionType.swift */; };
-		9282DD152947DAB600453CE6 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD142947DAB600453CE6 /* SectionView.swift */; };
-		9282DD192948DCD900453CE6 /* SectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD182948DCD900453CE6 /* SectionContainer.swift */; };
+		9282DD132947DA9F00453CE6 /* BlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD122947DA9F00453CE6 /* BlockType.swift */; };
+		9282DD152947DAB600453CE6 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD142947DAB600453CE6 /* BlockView.swift */; };
+		9282DD192948DCD900453CE6 /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD182948DCD900453CE6 /* BlockContainer.swift */; };
 		9282DD1B2948DD9000453CE6 /* SectionContainerContextMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1A2948DD9000453CE6 /* SectionContainerContextMenuAction.swift */; };
 		92A856F92936C0DA0050F352 /* ThreeColumns.json in Resources */ = {isa = PBXBuildFile; fileRef = 92A856F82936C0DA0050F352 /* ThreeColumns.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9211773F2938089600D6C874 /* SectionDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDecodable.swift; sourceTree = "<group>"; };
-		92117741293808F700D6C874 /* SectionsDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsDecodable.swift; sourceTree = "<group>"; };
+		9211773F2938089600D6C874 /* BlockDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDecodable.swift; sourceTree = "<group>"; };
+		92117741293808F700D6C874 /* BlocksDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksDecodable.swift; sourceTree = "<group>"; };
 		92117743293810D300D6C874 /* ComplexLayoutOne.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutOne.json; sourceTree = "<group>"; };
 		9211774629384FF600D6C874 /* ComplexLayoutTwo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutTwo.json; sourceTree = "<group>"; };
-		921177482939211D00D6C874 /* SectionResizeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionResizeHandler.swift; sourceTree = "<group>"; };
+		921177482939211D00D6C874 /* BlockResizeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockResizeHandler.swift; sourceTree = "<group>"; };
 		9211774A293A607400D6C874 /* ResizeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeEnums.swift; sourceTree = "<group>"; };
-		9211774D293BCF0300D6C874 /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
-		9211774F293BE02200D6C874 /* SectionBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBorder.swift; sourceTree = "<group>"; };
+		9211774D293BCF0300D6C874 /* ListBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlock.swift; sourceTree = "<group>"; };
+		9211774F293BE02200D6C874 /* BlockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBorder.swift; sourceTree = "<group>"; };
 		92117751293C42DB00D6C874 /* CheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCircle.swift; sourceTree = "<group>"; };
 		92117753293D870D00D6C874 /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
 		92117755293E593500D6C874 /* ListSectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionItem.swift; sourceTree = "<group>"; };
-		92117757293E906700D6C874 /* SectionContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContainerView.swift; sourceTree = "<group>"; };
+		92117757293E906700D6C874 /* BlockContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerView.swift; sourceTree = "<group>"; };
 		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		9214A646292FD3D10072B012 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		9214A648292FD3D50072B012 /* Sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sections.swift; sourceTree = "<group>"; };
+		9214A646292FD3D10072B012 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		9214A648292FD3D50072B012 /* Blocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blocks.swift; sourceTree = "<group>"; };
 		92319DB629268CF2005675C9 /* cosmo-swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cosmo-swiftui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cosmo_swiftuiApp.swift; sourceTree = "<group>"; };
 		92319DBB29268CF2005675C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,9 +62,9 @@
 		92319DCE29297FDE005675C9 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCusor+Extensions.swift"; sourceTree = "<group>"; };
 		92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Extensions.swift"; sourceTree = "<group>"; };
-		9282DD122947DA9F00453CE6 /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
-		9282DD142947DAB600453CE6 /* SectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
-		9282DD182948DCD900453CE6 /* SectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContainer.swift; sourceTree = "<group>"; };
+		9282DD122947DA9F00453CE6 /* BlockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockType.swift; sourceTree = "<group>"; };
+		9282DD142947DAB600453CE6 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
+		9282DD182948DCD900453CE6 /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
 		9282DD1A2948DD9000453CE6 /* SectionContainerContextMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContainerContextMenuAction.swift; sourceTree = "<group>"; };
 		92A856F82936C0DA0050F352 /* ThreeColumns.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ThreeColumns.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,26 +80,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9211774C293BCEE300D6C874 /* list_section */ = {
+		9211774C293BCEE300D6C874 /* list_block */ = {
 			isa = PBXGroup;
 			children = (
-				9211774D293BCF0300D6C874 /* ListSection.swift */,
+				9211774D293BCF0300D6C874 /* ListBlock.swift */,
 				92117751293C42DB00D6C874 /* CheckCircle.swift */,
 				92117753293D870D00D6C874 /* ListRow.swift */,
 				92117755293E593500D6C874 /* ListSectionItem.swift */,
 			);
-			path = list_section;
+			path = list_block;
 			sourceTree = "<group>";
 		};
 		9214A64A292FD4200072B012 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				9282DD112947D52700453CE6 /* section_resize_handler */,
-				9282DD102947D4B000453CE6 /* section_container */,
-				9211774C293BCEE300D6C874 /* list_section */,
+				9282DD112947D52700453CE6 /* block_resize_handler */,
+				9282DD102947D4B000453CE6 /* block_container */,
+				9211774C293BCEE300D6C874 /* list_block */,
 				92A856ED2936BC600050F352 /* home */,
-				92A856EC2936BC5A0050F352 /* section */,
-				92A856EB2936BC530050F352 /* sections */,
+				92A856EC2936BC5A0050F352 /* block */,
+				92A856EB2936BC530050F352 /* blocks */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -144,23 +144,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9282DD102947D4B000453CE6 /* section_container */ = {
+		9282DD102947D4B000453CE6 /* block_container */ = {
 			isa = PBXGroup;
 			children = (
 				9282DD162948DC9600453CE6 /* content_menu */,
-				92117757293E906700D6C874 /* SectionContainerView.swift */,
-				9282DD182948DCD900453CE6 /* SectionContainer.swift */,
+				92117757293E906700D6C874 /* BlockContainerView.swift */,
+				9282DD182948DCD900453CE6 /* BlockContainer.swift */,
 			);
-			path = section_container;
+			path = block_container;
 			sourceTree = "<group>";
 		};
-		9282DD112947D52700453CE6 /* section_resize_handler */ = {
+		9282DD112947D52700453CE6 /* block_resize_handler */ = {
 			isa = PBXGroup;
 			children = (
-				921177482939211D00D6C874 /* SectionResizeHandler.swift */,
+				921177482939211D00D6C874 /* BlockResizeHandler.swift */,
 				9211774A293A607400D6C874 /* ResizeEnums.swift */,
 			);
-			path = section_resize_handler;
+			path = block_resize_handler;
 			sourceTree = "<group>";
 		};
 		9282DD162948DC9600453CE6 /* content_menu */ = {
@@ -171,27 +171,27 @@
 			path = content_menu;
 			sourceTree = "<group>";
 		};
-		92A856EB2936BC530050F352 /* sections */ = {
+		92A856EB2936BC530050F352 /* blocks */ = {
 			isa = PBXGroup;
 			children = (
 				92A856F42936BD5D0050F352 /* resources */,
-				9214A648292FD3D50072B012 /* Sections.swift */,
-				92117741293808F700D6C874 /* SectionsDecodable.swift */,
+				9214A648292FD3D50072B012 /* Blocks.swift */,
+				92117741293808F700D6C874 /* BlocksDecodable.swift */,
 			);
-			path = sections;
+			path = blocks;
 			sourceTree = "<group>";
 		};
-		92A856EC2936BC5A0050F352 /* section */ = {
+		92A856EC2936BC5A0050F352 /* block */ = {
 			isa = PBXGroup;
 			children = (
 				92A856F12936BCA80050F352 /* mocks */,
-				9214A646292FD3D10072B012 /* Section.swift */,
-				9211773F2938089600D6C874 /* SectionDecodable.swift */,
-				9211774F293BE02200D6C874 /* SectionBorder.swift */,
-				9282DD122947DA9F00453CE6 /* SectionType.swift */,
-				9282DD142947DAB600453CE6 /* SectionView.swift */,
+				9214A646292FD3D10072B012 /* Block.swift */,
+				9211773F2938089600D6C874 /* BlockDecodable.swift */,
+				9211774F293BE02200D6C874 /* BlockBorder.swift */,
+				9282DD122947DA9F00453CE6 /* BlockType.swift */,
+				9282DD142947DAB600453CE6 /* BlockView.swift */,
 			);
-			path = section;
+			path = block;
 			sourceTree = "<group>";
 		};
 		92A856ED2936BC600050F352 /* home */ = {
@@ -300,28 +300,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				921177492939211D00D6C874 /* SectionResizeHandler.swift in Sources */,
+				921177492939211D00D6C874 /* BlockResizeHandler.swift in Sources */,
 				92319DBC29268CF2005675C9 /* ContentView.swift in Sources */,
-				9214A649292FD3D50072B012 /* Sections.swift in Sources */,
+				9214A649292FD3D50072B012 /* Blocks.swift in Sources */,
 				9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */,
 				92117756293E593500D6C874 /* ListSectionItem.swift in Sources */,
 				9282DD1B2948DD9000453CE6 /* SectionContainerContextMenuAction.swift in Sources */,
-				9282DD192948DCD900453CE6 /* SectionContainer.swift in Sources */,
+				9282DD192948DCD900453CE6 /* BlockContainer.swift in Sources */,
 				92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */,
-				9211774E293BCF0300D6C874 /* ListSection.swift in Sources */,
+				9211774E293BCF0300D6C874 /* ListBlock.swift in Sources */,
 				92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */,
 				92117754293D870D00D6C874 /* ListRow.swift in Sources */,
-				9214A647292FD3D10072B012 /* Section.swift in Sources */,
-				92117742293808F700D6C874 /* SectionsDecodable.swift in Sources */,
-				9282DD132947DA9F00453CE6 /* SectionType.swift in Sources */,
+				9214A647292FD3D10072B012 /* Block.swift in Sources */,
+				92117742293808F700D6C874 /* BlocksDecodable.swift in Sources */,
+				9282DD132947DA9F00453CE6 /* BlockType.swift in Sources */,
 				92319DCF29297FDE005675C9 /* Home.swift in Sources */,
-				921177402938089600D6C874 /* SectionDecodable.swift in Sources */,
-				92117750293BE02200D6C874 /* SectionBorder.swift in Sources */,
+				921177402938089600D6C874 /* BlockDecodable.swift in Sources */,
+				92117750293BE02200D6C874 /* BlockBorder.swift in Sources */,
 				92117752293C42DB00D6C874 /* CheckCircle.swift in Sources */,
 				92117744293810D300D6C874 /* ComplexLayoutOne.json in Sources */,
-				9282DD152947DAB600453CE6 /* SectionView.swift in Sources */,
+				9282DD152947DAB600453CE6 /* BlockView.swift in Sources */,
 				9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */,
-				92117758293E906700D6C874 /* SectionContainerView.swift in Sources */,
+				92117758293E906700D6C874 /* BlockContainerView.swift in Sources */,
 				92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
