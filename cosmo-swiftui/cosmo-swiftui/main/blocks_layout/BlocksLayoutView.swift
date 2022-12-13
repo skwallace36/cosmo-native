@@ -11,6 +11,7 @@ struct BlocksLayoutView: View {
 
     @ObservedObject var blocksLayout: BlocksLayout
     @ObservedObject var resizeHandler: BlocksResizeHandler
+    @ObservedObject var splitHandler: BlocksSplitHandler
 
     var body: some View {
 
@@ -22,7 +23,7 @@ struct BlocksLayoutView: View {
 
         ZStack(alignment: .topLeading) {
             ForEach(blocksLayout.blocks, id: \.blockId) { block in
-                BlockContainerView(container: BlockContainer(block, resizeHandler))
+                BlockContainerView(container: BlockContainer(block, resizeHandler, splitHandler))
                 .frame(
                     width: (block.width * resizeHandler.$homeSize.width.wrappedValue) + block.widthAdjustment,
                     height: (block.height * resizeHandler.$homeSize.height.wrappedValue) + block.heightAdjustment

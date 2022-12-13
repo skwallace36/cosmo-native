@@ -13,7 +13,7 @@ extension Block: Equatable, Identifiable, Hashable {
         lhs.blockId == rhs.blockId
 
     }
-    func hash(into hasher: inout Hasher) { hasher.combine(blockId) }
+    func hash(into hasher: inout Hasher) {hasher.combine(blockId) }
 }
 
 class Block: ObservableObject  {
@@ -22,10 +22,10 @@ class Block: ObservableObject  {
     var blockType: BlockType
     var backgroundColor: Color = .random
 
-    var leftNeighbors: [Block] = []
-    var rightNeighbors: [Block] = []
-    var topNeighbors: [Block] = []
-    var bottomNeighbors: [Block] = []
+    @Published var leftNeighbors: [Block] = []
+    @Published var rightNeighbors: [Block] = []
+    @Published var topNeighbors: [Block] = []
+    @Published var bottomNeighbors: [Block] = []
 
     var topNeighborsSameWidthAndX: [Block] = []
     var bottomNeighborsSameWidthAndX: [Block] = []
@@ -54,3 +54,33 @@ class Block: ObservableObject  {
 }
 
 
+extension Block {
+    func leftNeighborsLabel() -> String {
+        let text = self.leftNeighbors.reduce(into: "", { acc, neighbor in
+            acc = acc + "\(neighbor.blockId), "
+        })
+        return "left: " + text.dropLast(2)
+    }
+
+    func rightNeighborsLabel() -> String {
+        let text = self.rightNeighbors.reduce(into: "", { acc, neighbor in
+            acc = acc + "\(neighbor.blockId), "
+        })
+        return "right: " + text.dropLast(2)
+    }
+
+    func topNeighborsLabel() -> String {
+        let text = self.topNeighbors.reduce(into: "", { acc, neighbor in
+            acc = acc + "\(neighbor.blockId), "
+        })
+        return "top: " + text.dropLast(2)
+    }
+
+    func bottomNeighborsLabel() -> String {
+        let text = self.bottomNeighbors.reduce(into: "", { acc, neighbor in
+            acc = acc + "\(neighbor.blockId), "
+        })
+        return "bottom: " + text.dropLast(2)
+    }
+
+}

@@ -24,11 +24,28 @@ struct BlockView: View {
                         width: block.leftNeighbors.count == 0 ? 4.0 : 2.0
                     )
                 switch block.blockType {
-                case .List:
-                    ListBlockView().frame(maxWidth: .infinity, maxHeight: .infinity)
-                case .Empty:
-                    Rectangle().fill(block.backgroundColor)
+//                case .List:
+//                    ListBlockView().frame(maxWidth: .infinity, maxHeight: .infinity)
+                case .Empty, .List:
+                    Rectangle()
+                        .fill(block.backgroundColor)
                         .contentShape(Rectangle())
+                        .overlay {
+                            VStack(spacing: 0.0) {
+                                Text(block.topNeighborsLabel())
+                                Spacer()
+                                Text("id: \(block.blockId)")
+                                HStack(spacing: 0.0) {
+                                    Text(block.leftNeighborsLabel())
+                                    Spacer()
+                                    Text(block.rightNeighborsLabel())
+                                }.padding(.horizontal, 16)
+                                Spacer()
+                                Text(block.bottomNeighborsLabel())
+                            }
+
+
+                        }
                 }
                 Rectangle()
                     .fill(.black)

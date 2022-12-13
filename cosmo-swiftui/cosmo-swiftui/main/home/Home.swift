@@ -33,7 +33,10 @@ struct HomeView: View {
         GeometryReader { geo in
             VStack(spacing: 0) {
                 BlocksLayoutView(
-                    blocksLayout: blocksLayout, resizeHandler: BlocksResizeHandler(homeSize: $homeSize, blocksLayout: blocksLayout))
+                    blocksLayout: blocksLayout,
+                    resizeHandler: BlocksResizeHandler(homeSize: $homeSize, blocksLayout: blocksLayout),
+                    splitHandler: BlocksSplitHandler($homeSize, blocksLayout)
+                )
             }
         }.bindGeometry(to: $homeSize) { $0.size }
             .task {

@@ -10,10 +10,12 @@ import SwiftUI
 class BlockContainer: ObservableObject {
     var block: Block
     var resizeHandler: BlocksResizeHandler
-    var contextMenuActions: [BlockContainerContextMenuAction] = [.Split(.Horizontal), .Split(.Vertical), .Close]
+    var splitHandler: BlocksSplitHandler
+    var blockActions: [BlockAction] = [.Split(.Horizontal), .Split(.Vertical)]
 
-    init(_ block: Block, _ resizeHandler: BlocksResizeHandler) {
+    init(_ block: Block, _ resizeHandler: BlocksResizeHandler, _ splitHandler: BlocksSplitHandler) {
         self.block = block
         self.resizeHandler = resizeHandler
+        self.splitHandler = splitHandler
     }
 }

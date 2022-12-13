@@ -7,36 +7,4 @@
 
 import SwiftUI
 
-enum SplitDirection {
-    case Horizontal
-    case Vertical
-}
-
-
-enum BlockContainerContextMenuAction: Hashable {
-    case Split(SplitDirection)
-    case Close
-
-    var label: String {
-        switch self {
-        case .Split(let splitDirection):
-            switch splitDirection {
-            case .Horizontal:
-                return "Split Horizontally"
-            case .Vertical:
-                return "Split Vertically"
-            }
-        case .Close:
-            return "Close"
-        }
-    }
-
-    func button() -> any View {
-        Button("itembutton") {
-            print("action")
-        }
-    }
-
-
-}
 

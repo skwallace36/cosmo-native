@@ -11,6 +11,7 @@ struct BlockContainerView: View {
     @StateObject var container: BlockContainer
     var block: Block { container.block }
     var resizeHandler: BlocksResizeHandler { container.resizeHandler }
+    var splitHandler: BlocksSplitHandler { container.splitHandler }
     
     var body: some View {
         let localDrag = DragGesture(minimumDistance: 3, coordinateSpace: .named("block")).onChanged({
@@ -27,7 +28,7 @@ struct BlockContainerView: View {
                 .gesture(localDrag)
                 .coordinateSpace(name: "block")
                 .contextMenu {
-                    ForEach(container.contextMenuActions, id: \.self) { action in
+                    ForEach(container.blockActions, id: \.self) { action in
                         Button(action.label) {
                             clickedContextMenuAction(action)
                         }
@@ -43,12 +44,10 @@ struct BlockContainerView: View {
         }
     }
 
-    func clickedContextMenuAction(_ action: BlockContainerContextMenuAction) {
+    func clickedContextMenuAction(_ action: BlockAction) {
         switch action {
-        case .Split(let splitDirection):
-            print("split")
-        case .Close:
-            print("close")
+        case .Split(let direction):
+            splitHandler.splitBlock(direction, block: block)
         }
     }
 }
