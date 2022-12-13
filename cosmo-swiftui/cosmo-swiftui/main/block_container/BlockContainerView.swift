@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct BlockContainerView: View {
-    @StateObject var container: BlockContainer
+    @ObservedObject var container: BlockContainer
+    @ObservedObject var resizeHandler: BlocksResizeHandler
+    @ObservedObject var splitHandler: BlocksSplitHandler
+
+    init(container: BlockContainer) {
+        self.container = container
+        self.resizeHandler = container.resizeHandler
+        self.splitHandler = container.splitHandler
+    }
     var block: Block { container.block }
-    var resizeHandler: BlocksResizeHandler { container.resizeHandler }
-    var splitHandler: BlocksSplitHandler { container.splitHandler }
     
     var body: some View {
         let localDrag = DragGesture(minimumDistance: 3, coordinateSpace: .named("block")).onChanged({
@@ -39,8 +45,6 @@ struct BlockContainerView: View {
         .onContinuousHover { phase in
             resizeHandler.blockHovering = block
             resizeHandler.blockHover = phase
-        }.onAppear {
-            print("on appear block view")
         }
     }
 

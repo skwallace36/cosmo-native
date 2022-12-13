@@ -38,6 +38,8 @@ struct BlocksLayoutView: View {
                 .onAppear {
                     print("onAppear: \(block.blockId) with width: \((block.width * resizeHandler.homeSize.width) + block.widthAdjustment), height: \((block.height * resizeHandler.homeSize.height) + block.heightAdjustment)")
 
+                }.task {
+                    print("zstaccking \(block.blockId)")
                 }
 //                .onChange(of: resizeHandler.homeSize, perform: {print($0)})
 //                .onChange(of: blocksLayout.blocks, perform: { print($0) })

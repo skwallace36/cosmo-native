@@ -8,7 +8,7 @@
 import SwiftUI
 
 class BlocksResizeHandler: ObservableObject {
-    @Published var startEdge: ResizeEdge? = nil
+    var startEdge: ResizeEdge? = nil
     @Published var startBlock: Block? = nil
     @Published var localBlockDrag: DragGesture.Value? {
         didSet {
@@ -32,7 +32,7 @@ class BlocksResizeHandler: ObservableObject {
         }
     }
     @Binding var homeSize: CGSize
-    var blocksLayout: BlocksLayout
+    @ObservedObject var blocksLayout: BlocksLayout
     let hoverResizeThreshold: CGFloat = 5.0
 
     @Published var activelyResizing = false
@@ -63,6 +63,7 @@ class BlocksResizeHandler: ObservableObject {
     }
 
     func handleLocalBlockDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
+        print(newValue?.location)
         if newValue == nil && oldValue != nil {
             globalBlockDragOver(at: oldValue?.location)
             return
@@ -89,6 +90,8 @@ class BlocksResizeHandler: ObservableObject {
 
 
     func localBlockDragActive(newValue: DragGesture.Value) {
+        print("active")
+        print(startEdge)
         switch startEdge {
         case .Left:
             activelyResizing = true
@@ -210,7 +213,9 @@ class BlocksResizeHandler: ObservableObject {
 
     func handleDragFromTopEdge(_ dragEvent: DragGesture.Value?) {
         let dY = globalBlockDrag?.translation.height ?? 0.0
+        print(dY)
         if dY < 0 {
+            print("dY < 0")
             let topNeighbors = startBlock?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
@@ -226,6 +231,7 @@ class BlocksResizeHandler: ObservableObject {
                 }
             }
         } else if dY > 0 {
+            print("dY > 0")
             let topNeighbors = startBlock?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))

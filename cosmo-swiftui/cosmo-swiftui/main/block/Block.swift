@@ -27,10 +27,8 @@ class Block: ObservableObject  {
     @Published var topNeighbors: [Block] = []
     @Published var bottomNeighbors: [Block] = []
 
-    var topNeighborsSameWidthAndX: [Block] = []
-    var bottomNeighborsSameWidthAndX: [Block] = []
-
-    var edgesToBorder: [Edge] = [.top, .bottom, .trailing, .leading]
+    @Published var topNeighborsSameWidthAndX: [Block] = []
+    @Published var bottomNeighborsSameWidthAndX: [Block] = []
 
     @Published var width: CGFloat
     @Published var widthAdjustment: CGFloat = 0.0
@@ -50,7 +48,6 @@ class Block: ObservableObject  {
         self.widthOffset = widthOffset
         self.heightOffset = heightOffset
     }
-
 }
 
 

@@ -43,18 +43,18 @@ class BlocksLayout: ObservableObject {
             }
         }
     }
-
-    func topNeighborsSameWidthAndXRecursive(for block: Block, with topNeighbors: [Block] ) -> [Block] {
-        let topNeighborsWithSameWithAndX = topNeighbors.filter {
-            $0.width == block.width && $0.widthOffset == block.widthOffset
-        }
-        return topNeighborsWithSameWithAndX + topNeighborsWithSameWithAndX.flatMap { topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors) }
-    }
-
-    func bottomNeighborsSameWidthAndXRecursive(for block: Block, with bottomNeighbors: [Block] ) -> [Block] {
-        let bottomNeighborsWithSameWithAndX = bottomNeighbors.filter {
-            $0.width == block.width && $0.widthOffset == block.widthOffset
-        }
-        return bottomNeighborsWithSameWithAndX + bottomNeighborsWithSameWithAndX.flatMap { bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors) }
-    }
+//
+//    func topNeighborsSameWidthAndXRecursive(for block: Block, with topNeighbors: [Block] ) -> [Block] {
+//        let topNeighborsWithSameWithAndX = topNeighbors.filter {
+//            $0.width == block.width && $0.widthOffset == block.widthOffset
+//        }
+//        return topNeighborsWithSameWithAndX + topNeighborsWithSameWithAndX.flatMap { topNeighborsSameWidthAndXRecursive(for: $0, with: $0.topNeighbors) }
+//    }
+//
+//    func bottomNeighborsSameWidthAndXRecursive(for block: Block, with bottomNeighbors: [Block] ) -> [Block] {
+//        let bottomNeighborsWithSameWithAndX = bottomNeighbors.filter {
+//            $0.width == block.width && $0.widthOffset == block.widthOffset
+//        }
+//        return bottomNeighborsWithSameWithAndX + bottomNeighborsWithSameWithAndX.flatMap { bottomNeighborsSameWidthAndXRecursive(for: $0, with: $0.bottomNeighbors) }
+//    }
 }

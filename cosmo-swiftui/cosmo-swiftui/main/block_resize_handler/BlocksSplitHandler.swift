@@ -26,8 +26,21 @@ class BlocksSplitHandler: ObservableObject {
         }
 
     }
+
+}
+
+extension BlocksSplitHandler {
+
+
+    // todo
     @MainActor
-    func splitVertically(_ block: Block) {
+    func splitHorizontally(_ block: Block) {
+        
+    }
+
+    @discardableResult
+    @MainActor
+    func splitVertically(_ block: Block) -> Bool{
         let newBlock = Block(
             blockId: blocksLayout.blocks.count + 1,
             blockType: .Empty,
@@ -50,11 +63,25 @@ class BlocksSplitHandler: ObservableObject {
         //set new block left neighbors to original block
         newBlock.leftNeighbors.append(block)
 
-        // need to recalculate same width neighbors
+        // set new block vertical neighbor relationships to the same as original block
+        block.topNeighbors.forEach {
+            newBlock.topNeighbors.append($0)
+            $0.bottomNeighbors.append(newBlock)
+        }
+        block.bottomNeighbors.forEach {
+            newBlock.bottomNeighbors.append($0)
+            $0.topNeighbors.append(newBlock)
+        }
+        newBlock.topNeighborsSameWidthAndX.append(contentsOf: block.topNeighborsSameWidthAndX)
+        newBlock.bottomNeighborsSameWidthAndX.append(contentsOf: block.bottomNeighborsSameWidthAndX)
+
+
+        // need to recalculate same width horizontal neighbors (not implemented)
 
         // add new block to layout
         blocksLayout.blocks.append(newBlock)
         // set original block width to half of its original width
         block.width = block.width * 0.5
+        return true
     }
 }
