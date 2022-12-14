@@ -24,9 +24,7 @@ class BlocksSplitHandler: ObservableObject {
         case .Vertical:
             splitVertically(block)
         }
-
     }
-
 }
 
 extension BlocksSplitHandler {
@@ -74,6 +72,10 @@ extension BlocksSplitHandler {
         }
         newBlock.topNeighborsSameWidthAndX.append(contentsOf: block.topNeighborsSameWidthAndX)
         newBlock.bottomNeighborsSameWidthAndX.append(contentsOf: block.bottomNeighborsSameWidthAndX)
+
+        // TODO: handle same width and x splitting
+        // if splitting a block with a top/bottom same widthandx neighbor,
+        // they are no longer same widthandx neighbors
 
 
         // need to recalculate same width horizontal neighbors (not implemented)

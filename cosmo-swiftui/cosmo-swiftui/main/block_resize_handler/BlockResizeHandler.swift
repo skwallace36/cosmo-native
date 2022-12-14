@@ -8,18 +8,18 @@
 import SwiftUI
 
 class BlocksResizeHandler: ObservableObject {
-    var startEdge: ResizeEdge? = nil
     @Published var startBlock: Block? = nil
     @Published var localBlockDrag: DragGesture.Value? {
         didSet {
-            self.handleLocalBlockDrag(oldValue: oldValue, newValue: localBlockDrag)
+            handleLocalBlockDrag(oldValue: oldValue, newValue: localBlockDrag)
         }
     }
     @Published var globalBlockDrag: DragGesture.Value? {
         didSet {
-            self.handleGlobalBlockDrag(oldValue: oldValue, newValue: globalBlockDrag)
+            handleGlobalBlockDrag(oldValue: oldValue, newValue: globalBlockDrag)
         }
     }
+    var lastEdgeHovered: ResizeEdge? = nil
     @Published var blockHovering: Block?
     @Published var blockHover: HoverPhase? {
         didSet {
@@ -43,7 +43,7 @@ class BlocksResizeHandler: ObservableObject {
     }
 
     var resizeType: ResizeType? {
-        switch startEdge {
+        switch lastEdgeHovered {
         case .Left, .Right:
             return .Horizontal
         case .Top, .Bottom:
@@ -63,7 +63,6 @@ class BlocksResizeHandler: ObservableObject {
     }
 
     func handleLocalBlockDrag(oldValue: DragGesture.Value?, newValue: DragGesture.Value?) {
-        print(newValue?.location)
         if newValue == nil && oldValue != nil {
             globalBlockDragOver(at: oldValue?.location)
             return
@@ -90,9 +89,7 @@ class BlocksResizeHandler: ObservableObject {
 
 
     func localBlockDragActive(newValue: DragGesture.Value) {
-        print("active")
-        print(startEdge)
-        switch startEdge {
+        switch lastEdgeHovered {
         case .Left:
             activelyResizing = true
             handleDragFromLeftEdge(newValue)
@@ -119,32 +116,32 @@ class BlocksResizeHandler: ObservableObject {
 
         if onLeftEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeLeftRight { NSCursor.resizeLeftRight.popThenPush() }
-            startEdge = .Left
+            lastEdgeHovered = .Left
             return
         }
 
         if onRightEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeLeftRight { NSCursor.resizeLeftRight.popThenPush() }
-            startEdge = .Right
+            lastEdgeHovered = .Right
             return
         }
 
         if onTopEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeUpDown { NSCursor.resizeUpDown.popThenPush() }
-            startEdge = .Top
+            lastEdgeHovered = .Top
             return
         }
 
         if onBottomEdge(at: location, for: blockHovering) {
             if NSCursor.current != NSCursor.resizeUpDown { NSCursor.resizeUpDown.popThenPush() }
-            startEdge = .Bottom
+            lastEdgeHovered = .Bottom
             return
         }
 
         if NSCursor.current != NSCursor.arrow {
             NSCursor.pop()
         }
-        startEdge = .none
+        lastEdgeHovered = .none
     }
 
     func onLeftEdge(at location: CGPoint, for block: Block) -> Bool { location.x < hoverResizeThreshold }
@@ -213,9 +210,7 @@ class BlocksResizeHandler: ObservableObject {
 
     func handleDragFromTopEdge(_ dragEvent: DragGesture.Value?) {
         let dY = globalBlockDrag?.translation.height ?? 0.0
-        print(dY)
         if dY < 0 {
-            print("dY < 0")
             let topNeighbors = startBlock?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
@@ -231,7 +226,6 @@ class BlocksResizeHandler: ObservableObject {
                 }
             }
         } else if dY > 0 {
-            print("dY > 0")
             let topNeighbors = startBlock?.topNeighbors ?? []
             let topNeighborGroups = topNeighbors.compactMap { $0.topNeighborsSameWidthAndX + [$0] }
             let bottomNeighbors = Array(Set(topNeighbors.flatMap { $0.bottomNeighbors }))
