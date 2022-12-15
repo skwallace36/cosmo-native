@@ -9,22 +9,22 @@ import SwiftUI
 
 struct BlockContainerView: View {
     @ObservedObject var container: BlockContainer
-    @ObservedObject var resizeHandler: BlocksResizeHandler
-    @ObservedObject var splitHandler: BlocksSplitHandler
+    @ObservedObject var blocksResizeHandler: BlocksResizeHandler
+    @ObservedObject var blocksSplitHandler: BlocksSplitHandler
 
-    init(container: BlockContainer) {
+    init(container: BlockContainer, blocksResizeHandler: BlocksResizeHandler, blocksSplitHandler: BlocksSplitHandler) {
         self.container = container
-        self.resizeHandler = container.resizeHandler
-        self.splitHandler = container.splitHandler
+        self.blocksResizeHandler = blocksResizeHandler
+        self.blocksSplitHandler = blocksSplitHandler
     }
     var block: Block { container.block }
     
     var body: some View {
         let localDrag = DragGesture(minimumDistance: 3, coordinateSpace: .named("block")).onChanged({
-            resizeHandler.startBlock = block
-            resizeHandler.localBlockDrag = $0
+            blocksResizeHandler.startBlock = block
+            blocksResizeHandler.localBlockDrag = $0
         }).onEnded({ _ in
-            resizeHandler.localBlockDrag = nil
+            blocksResizeHandler.localBlockDrag = nil
         })
         BlockView(block: block).background(.pink)
         .overlay {
@@ -43,15 +43,15 @@ struct BlockContainerView: View {
                 }
         }
         .onContinuousHover { phase in
-            resizeHandler.blockHovering = block
-            resizeHandler.blockHover = phase
+            blocksResizeHandler.blockHovering = block
+            blocksResizeHandler.blockHover = phase
         }
     }
 
     func clickedContextMenuAction(_ action: BlockAction) {
         switch action {
         case .Split(let direction):
-            splitHandler.splitBlock(direction, block: block)
+            blocksSplitHandler.splitBlock(direction, block: block)
         }
     }
 }

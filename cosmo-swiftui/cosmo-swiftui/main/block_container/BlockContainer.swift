@@ -9,13 +9,9 @@ import SwiftUI
 
 class BlockContainer: ObservableObject {
     var block: Block
-    var resizeHandler: BlocksResizeHandler
-    var splitHandler: BlocksSplitHandler
     var blockActions: [BlockAction] = [.Split(.Horizontal), .Split(.Vertical)]
 
-    init(_ block: Block, _ resizeHandler: BlocksResizeHandler, _ splitHandler: BlocksSplitHandler) {
+    init(_ block: Block) {
         self.block = block
-        self.resizeHandler = resizeHandler
-        self.splitHandler = splitHandler
     }
 }

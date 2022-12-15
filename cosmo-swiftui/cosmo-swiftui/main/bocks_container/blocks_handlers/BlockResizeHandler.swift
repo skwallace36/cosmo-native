@@ -7,7 +7,28 @@
 
 import SwiftUI
 
+enum ResizeType {
+    case Horizontal
+    case Vertical
+}
+
+enum ResizeEdge {
+    case Left
+    case Right
+    case Top
+    case Bottom
+}
+
 class BlocksResizeHandler: ObservableObject {
+    @ObservedObject var homeSize: HomeSize
+    @ObservedObject var blocksProvider: BlocksProvider
+
+    init(_ homeSize: HomeSize, _ blocksProvider: BlocksProvider) {
+        self.homeSize = homeSize
+        self.blocksProvider = blocksProvider
+        print("made blocks resize handler")
+    }
+
     @Published var startBlock: Block? = nil
     @Published var localBlockDrag: DragGesture.Value? {
         didSet {
@@ -31,16 +52,11 @@ class BlocksResizeHandler: ObservableObject {
             }
         }
     }
-    @Binding var homeSize: CGSize
-    @ObservedObject var blocksLayout: BlocksLayout
+
     let hoverResizeThreshold: CGFloat = 5.0
 
     @Published var activelyResizing = false
 
-    init(homeSize: Binding<CGSize>, blocksLayout: BlocksLayout) {
-        self._homeSize = homeSize
-        self.blocksLayout = blocksLayout
-    }
 
     var resizeType: ResizeType? {
         switch lastEdgeHovered {
@@ -72,7 +88,8 @@ class BlocksResizeHandler: ObservableObject {
     }
 
     func globalBlockDragOver(at location: CGPoint?) {
-        blocksLayout.blocks.forEach {
+//        guard let homeSize = homeSize else { return }
+        blocksProvider.blocks.forEach {
             $0.width = $0.width + ($0.widthAdjustment / homeSize.width)
             $0.widthOffset = $0.widthOffset + ($0.widthOffsetAdjustment / homeSize.width)
             $0.widthAdjustment = 0.0
@@ -147,6 +164,7 @@ class BlocksResizeHandler: ObservableObject {
     func onLeftEdge(at location: CGPoint, for block: Block) -> Bool { location.x < hoverResizeThreshold }
 
     func onRightEdge(at location: CGPoint, for block: Block) -> Bool {
+//        guard let homeSize = homeSize else { return false }
         let blockWidth = block.width * homeSize.width
         return location.x > blockWidth - hoverResizeThreshold
     }
@@ -154,6 +172,7 @@ class BlocksResizeHandler: ObservableObject {
     func onTopEdge(at location: CGPoint, for block: Block) -> Bool { location.y < hoverResizeThreshold }
 
     func onBottomEdge(at location: CGPoint, for block: Block) -> Bool {
+//        guard let homeSize = homeSize else { return false }
         let blockHeight = block.height * homeSize.height
         return location.y > blockHeight - hoverResizeThreshold
     }

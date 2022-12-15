@@ -7,14 +7,35 @@
 
 import SwiftUI
 
+enum SplitDirection {
+    case Horizontal
+    case Vertical
+}
+
+enum BlockAction: Hashable {
+    case Split(SplitDirection)
+
+    var label: String {
+        switch self {
+        case .Split(let splitDirection):
+            switch splitDirection {
+            case .Horizontal:
+                return "Split Horizontally"
+            case .Vertical:
+                return "Split Vertically"
+            }
+        }
+    }
+}
+
 
 class BlocksSplitHandler: ObservableObject {
-    var blocksLayout: BlocksLayout
-    @Binding var homeSize: CGSize
+    @ObservedObject var blocksProvider: BlocksProvider
+    @ObservedObject var homeSize: HomeSize
 
-    init(_ homeSize: Binding<CGSize>, _ blocksLayout: BlocksLayout) {
-        self._homeSize = homeSize
-        self.blocksLayout = blocksLayout
+    init(homeSize: HomeSize, blocksProvider: BlocksProvider) {
+        self.homeSize = homeSize
+        self.blocksProvider = blocksProvider
     }
     @MainActor
     func splitBlock(_ direction: SplitDirection, block: Block) {
@@ -33,14 +54,14 @@ extension BlocksSplitHandler {
     // todo
     @MainActor
     func splitHorizontally(_ block: Block) {
-        
+
     }
 
     @discardableResult
     @MainActor
     func splitVertically(_ block: Block) -> Bool{
         let newBlock = Block(
-            blockId: blocksLayout.blocks.count + 1,
+            blockId: blocksProvider.blocks.count + 1,
             blockType: .Empty,
             width: block.width * 0.5,
             height: block.height,
@@ -81,7 +102,7 @@ extension BlocksSplitHandler {
         // need to recalculate same width horizontal neighbors (not implemented)
 
         // add new block to layout
-        blocksLayout.blocks.append(newBlock)
+        blocksProvider.blocks.append(newBlock)
         // set original block width to half of its original width
         block.width = block.width * 0.5
         return true

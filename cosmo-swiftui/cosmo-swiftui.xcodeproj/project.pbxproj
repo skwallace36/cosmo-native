@@ -13,7 +13,6 @@
 		92117745293812BA00D6C874 /* ComplexLayoutOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 92117743293810D300D6C874 /* ComplexLayoutOne.json */; };
 		9211774729384FF600D6C874 /* ComplexLayoutTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 9211774629384FF600D6C874 /* ComplexLayoutTwo.json */; };
 		921177492939211D00D6C874 /* BlockResizeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921177482939211D00D6C874 /* BlockResizeHandler.swift */; };
-		9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774A293A607400D6C874 /* ResizeEnums.swift */; };
 		9211774E293BCF0300D6C874 /* ListBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774D293BCF0300D6C874 /* ListBlock.swift */; };
 		92117750293BE02200D6C874 /* BlockBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9211774F293BE02200D6C874 /* BlockBorder.swift */; };
 		92117752293C42DB00D6C874 /* CheckCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117751293C42DB00D6C874 /* CheckCircle.swift */; };
@@ -21,12 +20,11 @@
 		92117758293E906700D6C874 /* BlockContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92117757293E906700D6C874 /* BlockContainerView.swift */; };
 		9214A645292ED7440072B012 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A644292ED7440072B012 /* Color+Extensions.swift */; };
 		9214A647292FD3D10072B012 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A646292FD3D10072B012 /* Block.swift */; };
-		9214A649292FD3D50072B012 /* BlocksLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* BlocksLayout.swift */; };
+		9214A649292FD3D50072B012 /* BlocksProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214A648292FD3D50072B012 /* BlocksProvider.swift */; };
 		92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */; };
-		92319DBC29268CF2005675C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DBB29268CF2005675C9 /* ContentView.swift */; };
 		92319DBE29268CF3005675C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92319DBD29268CF3005675C9 /* Assets.xcassets */; };
 		92319DC129268CF3005675C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92319DC029268CF3005675C9 /* Preview Assets.xcassets */; };
-		92319DCF29297FDE005675C9 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCE29297FDE005675C9 /* Home.swift */; };
+		92319DCF29297FDE005675C9 /* BlocksContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DCE29297FDE005675C9 /* BlocksContainerView.swift */; };
 		92319DD1292AECC3005675C9 /* NSCusor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */; };
 		92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */; };
 		9282DD132947DA9F00453CE6 /* BlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD122947DA9F00453CE6 /* BlockType.swift */; };
@@ -34,9 +32,7 @@
 		9282DD192948DCD900453CE6 /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD182948DCD900453CE6 /* BlockContainer.swift */; };
 		9282DD1B2948DD9000453CE6 /* BlockContainerContextMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1A2948DD9000453CE6 /* BlockContainerContextMenuAction.swift */; };
 		9282DD1D2948DFB600453CE6 /* ListBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1C2948DFB600453CE6 /* ListBlockView.swift */; };
-		9282DD1F2948E29800453CE6 /* BlocksLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD1E2948E29800453CE6 /* BlocksLayoutView.swift */; };
 		9282DD212948FE2100453CE6 /* BlocksSplitHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD202948FE2100453CE6 /* BlocksSplitHandler.swift */; };
-		9282DD232948FF3900453CE6 /* SplitEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9282DD222948FF3900453CE6 /* SplitEnums.swift */; };
 		92A856F92936C0DA0050F352 /* ThreeColumns.json in Resources */ = {isa = PBXBuildFile; fileRef = 92A856F82936C0DA0050F352 /* ThreeColumns.json */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +42,6 @@
 		92117743293810D300D6C874 /* ComplexLayoutOne.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutOne.json; sourceTree = "<group>"; };
 		9211774629384FF600D6C874 /* ComplexLayoutTwo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ComplexLayoutTwo.json; sourceTree = "<group>"; };
 		921177482939211D00D6C874 /* BlockResizeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockResizeHandler.swift; sourceTree = "<group>"; };
-		9211774A293A607400D6C874 /* ResizeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeEnums.swift; sourceTree = "<group>"; };
 		9211774D293BCF0300D6C874 /* ListBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlock.swift; sourceTree = "<group>"; };
 		9211774F293BE02200D6C874 /* BlockBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBorder.swift; sourceTree = "<group>"; };
 		92117751293C42DB00D6C874 /* CheckCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCircle.swift; sourceTree = "<group>"; };
@@ -54,14 +49,13 @@
 		92117757293E906700D6C874 /* BlockContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerView.swift; sourceTree = "<group>"; };
 		9214A644292ED7440072B012 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		9214A646292FD3D10072B012 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
-		9214A648292FD3D50072B012 /* BlocksLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksLayout.swift; sourceTree = "<group>"; };
+		9214A648292FD3D50072B012 /* BlocksProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksProvider.swift; sourceTree = "<group>"; };
 		92319DB629268CF2005675C9 /* cosmo-swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cosmo-swiftui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cosmo_swiftuiApp.swift; sourceTree = "<group>"; };
-		92319DBB29268CF2005675C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92319DBD29268CF3005675C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92319DC029268CF3005675C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		92319DC229268CF3005675C9 /* cosmo_swiftui.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cosmo_swiftui.entitlements; sourceTree = "<group>"; };
-		92319DCE29297FDE005675C9 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		92319DCE29297FDE005675C9 /* BlocksContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksContainerView.swift; sourceTree = "<group>"; };
 		92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSCusor+Extensions.swift"; sourceTree = "<group>"; };
 		92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeometryProxy+Extensions.swift"; sourceTree = "<group>"; };
 		9282DD122947DA9F00453CE6 /* BlockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockType.swift; sourceTree = "<group>"; };
@@ -69,9 +63,7 @@
 		9282DD182948DCD900453CE6 /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
 		9282DD1A2948DD9000453CE6 /* BlockContainerContextMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerContextMenuAction.swift; sourceTree = "<group>"; };
 		9282DD1C2948DFB600453CE6 /* ListBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockView.swift; sourceTree = "<group>"; };
-		9282DD1E2948E29800453CE6 /* BlocksLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksLayoutView.swift; sourceTree = "<group>"; };
 		9282DD202948FE2100453CE6 /* BlocksSplitHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSplitHandler.swift; sourceTree = "<group>"; };
-		9282DD222948FF3900453CE6 /* SplitEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitEnums.swift; sourceTree = "<group>"; };
 		92A856F82936C0DA0050F352 /* ThreeColumns.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ThreeColumns.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,11 +92,11 @@
 		9214A64A292FD4200072B012 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				9282DD112947D52700453CE6 /* block_resize_handler */,
+				924D25B8294AD906006C2C1B /* decodables */,
 				9282DD102947D4B000453CE6 /* block_container */,
-				92A856ED2936BC600050F352 /* home */,
 				92A856EC2936BC5A0050F352 /* block */,
-				92A856EB2936BC530050F352 /* blocks_layout */,
+				92A856ED2936BC600050F352 /* bocks_container */,
+				92A856EB2936BC530050F352 /* blocks_provider */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -130,7 +122,6 @@
 			children = (
 				9214A64A292FD4200072B012 /* main */,
 				92319DB929268CF2005675C9 /* cosmo_swiftuiApp.swift */,
-				92319DBB29268CF2005675C9 /* ContentView.swift */,
 				9214A644292ED7440072B012 /* Color+Extensions.swift */,
 				92319DD2292C09C6005675C9 /* GeometryProxy+Extensions.swift */,
 				92319DD0292AECC3005675C9 /* NSCusor+Extensions.swift */,
@@ -149,6 +140,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		924D25B8294AD906006C2C1B /* decodables */ = {
+			isa = PBXGroup;
+			children = (
+				9211773F2938089600D6C874 /* BlockDecodable.swift */,
+				92117741293808F700D6C874 /* BlocksDecodable.swift */,
+			);
+			path = decodables;
+			sourceTree = "<group>";
+		};
+		924D25B9294AD92F006C2C1B /* blocks_handlers */ = {
+			isa = PBXGroup;
+			children = (
+				921177482939211D00D6C874 /* BlockResizeHandler.swift */,
+				9282DD202948FE2100453CE6 /* BlocksSplitHandler.swift */,
+			);
+			path = blocks_handlers;
+			sourceTree = "<group>";
+		};
 		9282DD102947D4B000453CE6 /* block_container */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,17 +168,6 @@
 			path = block_container;
 			sourceTree = "<group>";
 		};
-		9282DD112947D52700453CE6 /* block_resize_handler */ = {
-			isa = PBXGroup;
-			children = (
-				921177482939211D00D6C874 /* BlockResizeHandler.swift */,
-				9211774A293A607400D6C874 /* ResizeEnums.swift */,
-				9282DD202948FE2100453CE6 /* BlocksSplitHandler.swift */,
-				9282DD222948FF3900453CE6 /* SplitEnums.swift */,
-			);
-			path = block_resize_handler;
-			sourceTree = "<group>";
-		};
 		9282DD162948DC9600453CE6 /* context_menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,52 +176,34 @@
 			path = context_menu;
 			sourceTree = "<group>";
 		};
-		92A856EB2936BC530050F352 /* blocks_layout */ = {
+		92A856EB2936BC530050F352 /* blocks_provider */ = {
 			isa = PBXGroup;
 			children = (
 				92A856F42936BD5D0050F352 /* resources */,
-				9214A648292FD3D50072B012 /* BlocksLayout.swift */,
-				92117741293808F700D6C874 /* BlocksDecodable.swift */,
-				9282DD1E2948E29800453CE6 /* BlocksLayoutView.swift */,
+				9214A648292FD3D50072B012 /* BlocksProvider.swift */,
 			);
-			path = blocks_layout;
+			path = blocks_provider;
 			sourceTree = "<group>";
 		};
 		92A856EC2936BC5A0050F352 /* block */ = {
 			isa = PBXGroup;
 			children = (
 				9211774C293BCEE300D6C874 /* list_block */,
-				92A856F12936BCA80050F352 /* mocks */,
 				9214A646292FD3D10072B012 /* Block.swift */,
 				9282DD142947DAB600453CE6 /* BlockView.swift */,
-				9211773F2938089600D6C874 /* BlockDecodable.swift */,
 				9211774F293BE02200D6C874 /* BlockBorder.swift */,
 				9282DD122947DA9F00453CE6 /* BlockType.swift */,
 			);
 			path = block;
 			sourceTree = "<group>";
 		};
-		92A856ED2936BC600050F352 /* home */ = {
+		92A856ED2936BC600050F352 /* bocks_container */ = {
 			isa = PBXGroup;
 			children = (
-				92A856F32936BCDC0050F352 /* mocks */,
-				92319DCE29297FDE005675C9 /* Home.swift */,
+				924D25B9294AD92F006C2C1B /* blocks_handlers */,
+				92319DCE29297FDE005675C9 /* BlocksContainerView.swift */,
 			);
-			path = home;
-			sourceTree = "<group>";
-		};
-		92A856F12936BCA80050F352 /* mocks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = mocks;
-			sourceTree = "<group>";
-		};
-		92A856F32936BCDC0050F352 /* mocks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = mocks;
+			path = bocks_container;
 			sourceTree = "<group>";
 		};
 		92A856F42936BD5D0050F352 /* resources */ = {
@@ -310,22 +290,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				921177492939211D00D6C874 /* BlockResizeHandler.swift in Sources */,
-				92319DBC29268CF2005675C9 /* ContentView.swift in Sources */,
-				9214A649292FD3D50072B012 /* BlocksLayout.swift in Sources */,
-				9282DD232948FF3900453CE6 /* SplitEnums.swift in Sources */,
-				9211774B293A607400D6C874 /* ResizeEnums.swift in Sources */,
+				9214A649292FD3D50072B012 /* BlocksProvider.swift in Sources */,
 				9282DD1B2948DD9000453CE6 /* BlockContainerContextMenuAction.swift in Sources */,
 				9282DD192948DCD900453CE6 /* BlockContainer.swift in Sources */,
 				92319DBA29268CF2005675C9 /* cosmo_swiftuiApp.swift in Sources */,
 				9282DD1D2948DFB600453CE6 /* ListBlockView.swift in Sources */,
-				9282DD1F2948E29800453CE6 /* BlocksLayoutView.swift in Sources */,
 				9211774E293BCF0300D6C874 /* ListBlock.swift in Sources */,
 				92319DD3292C09C6005675C9 /* GeometryProxy+Extensions.swift in Sources */,
 				92117754293D870D00D6C874 /* ListRow.swift in Sources */,
 				9214A647292FD3D10072B012 /* Block.swift in Sources */,
 				92117742293808F700D6C874 /* BlocksDecodable.swift in Sources */,
 				9282DD132947DA9F00453CE6 /* BlockType.swift in Sources */,
-				92319DCF29297FDE005675C9 /* Home.swift in Sources */,
+				92319DCF29297FDE005675C9 /* BlocksContainerView.swift in Sources */,
 				921177402938089600D6C874 /* BlockDecodable.swift in Sources */,
 				92117750293BE02200D6C874 /* BlockBorder.swift in Sources */,
 				92117752293C42DB00D6C874 /* CheckCircle.swift in Sources */,
