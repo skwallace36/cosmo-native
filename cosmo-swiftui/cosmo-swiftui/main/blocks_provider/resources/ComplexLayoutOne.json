@@ -14,11 +14,7 @@
                 "left": [],
                 "right": [3],
                 "top": [],
-                "bottom": [2],
-                "verticalSameWidthAndX": {
-                    "up": [],
-                    "down": [2]
-                }
+                "bottom": [2]
             }
         },
         {
@@ -35,11 +31,7 @@
                 "left": [],
                 "right": [3],
                 "top": [1],
-                "bottom": [5],
-                "verticalSameWidthAndX": {
-                    "up": [1],
-                    "down": []
-                }
+                "bottom": [5]
             }
 
         },

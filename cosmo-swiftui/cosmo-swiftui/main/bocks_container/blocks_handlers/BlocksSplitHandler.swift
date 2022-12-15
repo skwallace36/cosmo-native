@@ -28,7 +28,6 @@ enum BlockAction: Hashable {
     }
 }
 
-
 class BlocksSplitHandler: ObservableObject {
     @ObservedObject var blocksProvider: BlocksProvider
     @ObservedObject var homeSize: HomeSize
@@ -41,7 +40,7 @@ class BlocksSplitHandler: ObservableObject {
     func splitBlock(_ direction: SplitDirection, block: Block) {
         switch direction {
         case .Horizontal:
-            break
+            splitHorizontally(block)
         case .Vertical:
             splitVertically(block)
         }
@@ -50,11 +49,48 @@ class BlocksSplitHandler: ObservableObject {
 
 extension BlocksSplitHandler {
 
-
-    // todo
+    @discardableResult
     @MainActor
-    func splitHorizontally(_ block: Block) {
+    func splitHorizontally(_ block: Block) -> Bool {
+        let newBlock = Block(
+            blockId: blocksProvider.blocks.count + 1,
+            blockType: .Empty,
+            width: block.width,
+            height: block.height * 0.5,
+            widthOffset: block.widthOffset,
+            heightOffset: block.heightOffset + (block.height * 0.5))
 
+        block.bottomNeighbors.forEach {
+            // add original block bottom neighbors to new block right neighbors
+            newBlock.bottomNeighbors.append($0)
+            // add newblock to original blocks bottom neighbors top neighbors
+            $0.topNeighbors.append(newBlock)
+            // remove original block from original bottom neighbors top neighbors
+            $0.topNeighbors.removeAll { $0.blockId == block.blockId }
+        }
+
+        // set original block bottom neighbor to new block
+        block.bottomNeighbors = [newBlock]
+        // add original block to new block top neighbors
+        newBlock.topNeighbors.append(block)
+
+        // set new block horizontal neighbor relationships to same as original block
+        block.leftNeighbors.forEach {
+            newBlock.leftNeighbors.append($0)
+            $0.rightNeighbors.append(newBlock)
+        }
+
+        block.rightNeighbors.forEach {
+            newBlock.rightNeighbors.append($0)
+            $0.leftNeighbors.append(newBlock)
+        }
+        // add to each other's same width and x
+//        newBlock.topNeighborsSameWidthAndX.append(block)
+//        block.bottomNeighborsSameWidthAndX.append(newBlock)
+
+        blocksProvider.blocks.append(newBlock)
+        block.height = block.height * 0.5
+        return true
     }
 
     @discardableResult
@@ -91,8 +127,8 @@ extension BlocksSplitHandler {
             newBlock.bottomNeighbors.append($0)
             $0.topNeighbors.append(newBlock)
         }
-        newBlock.topNeighborsSameWidthAndX.append(contentsOf: block.topNeighborsSameWidthAndX)
-        newBlock.bottomNeighborsSameWidthAndX.append(contentsOf: block.bottomNeighborsSameWidthAndX)
+//        newBlock.topNeighborsSameWidthAndX.append(contentsOf: block.topNeighborsSameWidthAndX)
+//        newBlock.bottomNeighborsSameWidthAndX.append(contentsOf: block.bottomNeighborsSameWidthAndX)
 
         // TODO: handle same width and x splitting
         // if splitting a block with a top/bottom same widthandx neighbor,
